@@ -42,42 +42,61 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="space-y-24 px-4 max-w-7xl mx-auto">
+    <motion.div
+      className="space-y-24 px-4 max-w-7xl mx-auto"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.15 } },
+      }}
+    >
       <HeaderNavbar showWaitlist showContact />
       {/* Hero Section */}
-      {/* 1. Unique Value Proposition */}
-      <section className="flex flex-col lg:flex-row items-center gap-12">
-        <div className="flex-1">
-          <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">
-           One-Stop booking platform for all your luxury & convenience needs
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300 space-y-4">
+      <motion.section
+        className="flex flex-col lg:flex-row items-center gap-12"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.8, type: "spring" }}
+      >
+        <motion.div className="flex-1" initial={{ x: -40, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }} viewport={{ once: true }}>
+          <motion.h1 className="text-4xl lg:text-5xl font-extrabold mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
+            One-Stop booking platform for all your luxury & convenience needs
+          </motion.h1>
+          <motion.p className="text-gray-600 dark:text-gray-300 space-y-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
             <span>
               Synkkafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa’s most authentic experiences. We understand the unique opportunities and challenges of exploring Africa’s vibrant cultures, destinations, and services. 
             </span>
             <span>
               Fast, seamless, and secure bookings—so you can focus on making memories, not logistics.
             </span>
-          </p>
-        </div>
-        <div className="flex-1 flex justify-center">
+          </motion.p>
+        </motion.div>
+        <motion.div className="flex-1 flex justify-center" initial={{ x: 40, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }} viewport={{ once: true }}>
           <DotLottieReact
             src="/animations/hero-illustration.lottie"
             autoplay
             loop
             style={{ width: 400, height: 400 }}
           />
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      
-       {/* 2. Mission & Core Values */}
-      <section className="space-y-8">
-        <h2 className="text-3xl font-bold text-center">Our Mission & Core Values</h2>
-        <p className="text-center text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      {/* 2. Mission & Core Values */}
+      <motion.section
+        className="space-y-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.8, type: "spring" }}
+      >
+        <motion.h2 className="text-3xl font-bold text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
+          Our Mission & Core Values
+        </motion.h2>
+        <motion.p className="text-center text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
           To empower content creators with quick, transparent, and reliable funding—so that stories that matter can get told.
-        </p>
-
+        </motion.p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
@@ -95,10 +114,14 @@ export default function AboutPage() {
               desc: "We guide you every step of the way with dedicated account advice.",
               color: "bg-purple-50 text-purple-800",
             },
-          ].map((v) => (
+          ].map((v, i) => (
             <motion.div
               key={v.title}
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 32px 0 rgba(0,0,0,0.10)" }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: i * 0.1 }}
+              viewport={{ once: true }}
               className={`${v.color} rounded-2xl p-6 shadow-md`}
             >
               <h3 className="text-xl font-semibold mb-2">{v.title}</h3>
@@ -106,19 +129,31 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* 3. Top Features of Synkafrica Booking */}
-      <section className="space-y-8  bg-primary-500 rounded-2xl dark:bg-zinc-900 p-8">
-        <h2 className="text-3xl text-white font-bold text-center">Top Features</h2>
-        <p className="text-center text-white dark:text-gray-300 max-w-2xl mx-auto">
+      <motion.section
+        className="space-y-8  bg-primary-500 rounded-2xl dark:bg-zinc-900 p-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, type: "spring" }}
+      >
+        <motion.h2 className="text-3xl text-white font-bold text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
+          Top Features
+        </motion.h2>
+        <motion.p className="text-center text-white dark:text-gray-300 max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
           Our platform is built to make booking any service—transport, dining, beach experiences, and more—fast, reliable, and secure.
-        </p>
+        </motion.p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {FEATURES.map((f) => (
+          {FEATURES.map((f, i) => (
             <motion.div
               key={f.title}
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.07, boxShadow: "0 8px 32px 0 rgba(0,0,0,0.10)" }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: i * 0.08 }}
+              viewport={{ once: true }}
               className="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl text-center shadow-sm flex flex-col items-center"
             >
               <div className="mb-4">{f.icon}</div>
@@ -127,24 +162,35 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      
       {/*4. Meet the Team*/}
-      <MeetOurTeam />
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, type: "spring" }}
+      >
+        <MeetOurTeam />
+      </motion.div>
 
-      
       {/* 5. Words from the CEO */}
-      <section className="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-12 flex flex-col md:flex-row items-center gap-8">
-        <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden">
+      <motion.section
+        className="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-12 flex flex-col md:flex-row items-center gap-8"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, type: "spring" }}
+      >
+        <motion.div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden" initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
           <Image
             src="/team/temidayo.jpg"
             alt="CEO Photo"
             fill
             className="object-cover"
           />
-        </div>
-        <div>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
           <h3 className="text-2xl font-semibold mb-2">“Our vision is to fuel creativity.”</h3>
           <p className="italic text-gray-600 dark:text-gray-300 mb-4">
             — Temidayo Faluyi, Founder & CEO
@@ -152,25 +198,44 @@ export default function AboutPage() {
           <p className="text-gray-700 dark:text-gray-200">
             At Synkkafrica, we’re building a platform to make discovering, booking, and enjoying Africa’s most authentic experiences as seamless as sharing your next adventure. Our mission is to empower every explorer, foodie, and culture-seeker with the tools—and the confidence—they need to thrive on their journey across Africa.
           </p>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-       {/* 5. Social Media Handles */}
-    <ConnectWithUs />
+      {/* 5. Social Media Handles */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, type: "spring" }}
+      >
+        <ConnectWithUs />
+      </motion.div>
 
       {/* 6. Early Access / Waitlist */}
-      <section className="bg-primary-500 dark:bg-gray-900 rounded-2xl px-4 py-8 sm:px-8 sm:py-12 md:px-12 md:py-16 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl text-white font-bold mb-3 sm:mb-4">Get Early Access</h2>
-        <p className="text-white dark:text-gray-300 mb-4 sm:mb-6 text-base sm:text-lg max-w-2xl mx-auto">
+      <motion.section
+        className="bg-primary-500 dark:bg-gray-900 rounded-2xl px-4 py-8 sm:px-8 sm:py-12 md:px-12 md:py-16 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, type: "spring" }}
+      >
+        <motion.h2 className="text-2xl sm:text-3xl md:text-4xl text-white font-bold mb-3 sm:mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
+          Get Early Access
+        </motion.h2>
+        <motion.p className="text-white dark:text-gray-300 mb-4 sm:mb-6 text-base sm:text-lg max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
           Join our waitlist and be the first to unlock hassle‑free booking experience.
-        </p>
-        <form
+        </motion.p>
+        <motion.form
           onSubmit={(e) => {
             e.preventDefault();
             // TODO: hook up to your API
             alert(`Thanks! We'll notify ${email}`);
           }}
           className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center max-w-xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          viewport={{ once: true }}
         >
           <input
             type="email"
@@ -189,8 +254,8 @@ export default function AboutPage() {
           >
             Join Waitlist
           </Button>
-        </form>
-      </section>
-    </div>
+        </motion.form>
+      </motion.section>
+    </motion.div>
   );
 }
