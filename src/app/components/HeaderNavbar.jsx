@@ -32,7 +32,7 @@ export default function HeaderNavbar({
 
       {/* Desktop nav */}
       <nav className="hidden md:flex items-center gap-4">
-        <Link href="#about" className="text-sm font-medium">
+        <Link href="/AboutPage" className="text-sm font-medium">
           About us
         </Link>
         {showWaitlist && (

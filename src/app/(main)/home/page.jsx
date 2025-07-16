@@ -1,15 +1,26 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Link from "next/link";
-import FAQ from "../LandingPage/components/FAQ";
+import { useRouter } from "next/navigation";
+import FAQ from "./components/FAQ";
 import Button from "../../components/ui/buttons";
 import HeaderNavbar from "../../components/HeaderNavbar";
 
 
 export default function LandingPage() {
+  const [email, setEmail] = useState("");
+  const router = useRouter();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (email) {
+      router.push(`/waitlistform?email=${encodeURIComponent(email)}`);
+    }
+  }
+
   return (
     <div className=" bg-white dark:bg-zinc-900 text-black dark:text-white transition-colors duration-500">
       <HeaderNavbar showWaitlist showContact={false} />
@@ -23,11 +34,17 @@ export default function LandingPage() {
           <p className="mb-6 text-lg text-gray-700 dark:text-gray-300 max-w-lg">
             Be among the first to enjoy the future synkkafrica brings to you. Join the waitlist now to get early access and exclusive updates.
           </p>
-          <form className="flex gap-2 max-w-md mb-2 animate-fade-in">
-            <input type="email" placeholder="Enter your email address" className="flex-1 px-4 py-3 rounded border focus:outline-none focus:ring-2 focus:ring-orange-400 transition bg-white dark:bg-zinc-800 text-black dark:text-white" required />
-              <Button type="submit" variant="filled" size="md" className="w-full">Get started →</Button>
+          <form className="flex gap-2 max-w-md mb-2 animate-fade-in" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              className="flex-1 px-4 py-3 rounded border focus:outline-none focus:ring-2 focus:ring-orange-400 transition bg-white dark:bg-zinc-800 text-black dark:text-white"
+              required
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <Button type="submit" variant="filled" size="md" className="w-full">Get started →</Button>
           </form>
-          
           <Link href="/ContactPage" className="text-orange-500 dark:text-orange-300 text-sm underline hover:text-orange-700 dark:hover:text-orange-400 transition">Contact us ↗</Link>
         </motion.div>
         <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="flex-1 flex justify-center">

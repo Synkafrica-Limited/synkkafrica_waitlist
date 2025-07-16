@@ -2,9 +2,17 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { AnimatedField } from "./components/AnimatedField";
+import HeaderNavbar from "../../components/HeaderNavbar";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,12 +21,18 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-zinc-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 transition-colors duration-700 flex flex-col items-center justify-center px-4 py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, type: "spring" }}
-        className="w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-8 relative overflow-hidden"
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-zinc-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 transition-colors duration-700 flex flex-col">
+      {/* Header/Navbar */} 
+      <HeaderNavbar showWaitlist showContact={false} />
+      <main className="flex-1 flex flex-col items-center justify-center px-4
+
+        py-8 md:py-12 gap-8">
+        {/* 3D SVG Illustration */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, type: "spring" }}
+          className="w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-8 relative overflow-hidden"
       >
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
@@ -88,13 +102,14 @@ export default function ContactPage() {
                   placeholder=" "
                 />
               </AnimatedField>
-              <AnimatedField label="Email Address">
+              <AnimatedField label="Email">
                 <input
-                  type="email"
                   name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="johndoe@example.com" // <-- important!
+                  className="peer w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
                   required
-                  className="peer w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-                  placeholder=" "
                 />
               </AnimatedField>
               <AnimatedField label="Message">
@@ -118,21 +133,9 @@ export default function ContactPage() {
           )}
         </AnimatePresence>
       </motion.div>
+      </main>
+      {/* Footer */}
     </div>
   );
 }
 
-// Animated floating label field
-function AnimatedField({ label, children }) {
-  return (
-    <div className="relative">
-      {children}
-      <label className="absolute left-4 top-3 text-zinc-500 dark:text-zinc-400 pointer-events-none transition-all duration-200
-        peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-        peer-focus:-top-4 peer-focus:text-sm peer-focus:text-orange-500 dark:peer-focus:text-orange-400
-        bg-white dark:bg-zinc-900 px-1 rounded">
-        {label}
-      </label>
-    </div>
-  );
-}

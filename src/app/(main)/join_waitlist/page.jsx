@@ -1,19 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../../components/ui/buttons";
 import HeaderNavbar from "../../components/HeaderNavbar";
+import { FloatingField } from "./components/FloatingField";
 
 const services = ["Laundry", "Beach", "Car rental", "Dining", "Full packages"];
 const referrals = ["Friend", "Social Media", "Ad", "Other"];
 
 export default function WaitlistForm() {
+  const searchParams = useSearchParams();
+  const initialEmail = searchParams.get("email") || "";
   const [form, setForm] = useState({
     name: "",
-    email: "",
+    email: initialEmail,
     phone: "",
     referral: "",
     service: "",
@@ -196,17 +200,4 @@ export default function WaitlistForm() {
   );
 }
 
-// Floating label field component
-function FloatingField({ label, children }) {
-  return (
-    <div className="relative">
-      {children}
-      <label className="absolute left-4 top-3 text-zinc-500 dark:text-zinc-400 pointer-events-none transition-all duration-200
-        peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-        peer-focus:-top-4 peer-focus:text-sm peer-focus:text-orange-500 dark:peer-focus:text-orange-400
-        bg-white dark:bg-zinc-900 px-1 rounded">
-        {label}
-      </label>
-    </div>
-  );
-}
+
