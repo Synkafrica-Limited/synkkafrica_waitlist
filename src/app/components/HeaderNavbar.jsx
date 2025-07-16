@@ -144,7 +144,7 @@ export default function HeaderNavbar({
                 </svg>
               </button>
               <Link
-                href="#about"
+                href="/about-us"
                 className="text-base font-medium"
                 onClick={() => setOpen(false)}
               >

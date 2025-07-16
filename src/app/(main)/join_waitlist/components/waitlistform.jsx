@@ -38,11 +38,25 @@ export default function WaitlistForm() {
     setForm(f => ({ ...f, countryCode: e.target.value }))
   }
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    setSubmitted(true)
-    // TODO: send `form` to your backend…
-    setTimeout(() => setSubmitted(false), 2000)
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setSubmitted(true);
+    try {
+      const res = await fetch('/.netlify/functions/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Failed to join waitlist');
+      // Optionally, you can clear the form here
+      // setForm({ ...form, name: '', email: '', phone: '', referral: '', service: '', updates: false });
+    } catch (err) {
+      alert('There was a problem joining the waitlist. Please try again.');
+      setSubmitted(false);
+      return;
+    }
+    // Show success for 2s, then reset
+    setTimeout(() => setSubmitted(false), 2000);
   }
 
   return (
