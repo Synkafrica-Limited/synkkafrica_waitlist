@@ -32,12 +32,12 @@ export default function HeaderNavbar({
 
       {/* Desktop nav */}
       <nav className="hidden md:flex items-center gap-4">
-        <Link href="/AboutPage" className="text-sm font-medium">
+        <Link href="/about-us" className="text-sm font-medium">
           About us
         </Link>
         {showWaitlist && (
           <Link
-            href="/waitlistform"
+            href="/join_waitlist"
             className="text-sm font-medium text-orange-600 hover:underline"
           >
             Join Waitlist
@@ -45,7 +45,7 @@ export default function HeaderNavbar({
         )}
         {showContact && (
           <Link
-            href="/ContactPage"
+            href="/contact-us"
             className="text-sm font-medium text-orange-600 hover:underline"
           >
             Contact us
@@ -100,7 +100,7 @@ export default function HeaderNavbar({
             </Link>
             {showWaitlist && (
               <Link
-                href="/waitlistform"
+                href="/join_waitlist"
                 className="text-base font-medium text-orange-600 hover:underline"
                 onClick={() => setOpen(false)}
               >
@@ -109,7 +109,7 @@ export default function HeaderNavbar({
             )}
             {showContact && (
               <Link
-                href="/ContactPage"
+                href="/contact-us"
                 className="text-base font-medium text-orange-600 hover:underline"
                 onClick={() => setOpen(false)}
               >

@@ -1,120 +1,195 @@
+// app/about/page.jsx
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import HeaderNavbar from "../../components/HeaderNavbar";
 
-const coreValues = [
-  {
-    icon: "★",
-    title: "Innovation",
-    desc: "We continually push boundaries and explore new technologies to deliver cutting-edge solutions.",
-    color: "bg-orange-100 text-orange-700",
-  },
-  {
-    icon: "⬤",
-    title: "Excellence",
-    desc: "We strive for perfection in every project and continuously improve our processes.",
-    color: "bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100",
-  },
-  {
-    icon: "⬤",
-    title: "Integrity",
-    desc: "We build trust through transparency, honesty, and ethical business practices.",
-    color: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200",
-  },
-];
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import Image from "next/image";
+import { IoTimeOutline, IoPricetagOutline, IoGridOutline, IoLockClosedOutline, IoChatbubbleOutline } from "react-icons/io5";
+import Button from "@/app/components/ui/buttons";
+import HeaderNavbar from "@/app/components/HeaderNavbar";
+import MeetOurTeam from "./components/meetourteam";
+import ConnectWithUs from "./components/connectwithus";
 
 export default function AboutPage() {
+  const [email, setEmail] = useState("");
+  const FEATURES = [
+    {
+      icon: <IoTimeOutline size={36} className="text-primary-500" />,
+      title: "Real‑Time Availability",
+      desc: "See live inventory for cars, tables, beach slots & more—no double‑bookings.",
+    },
+    {
+      icon: <IoPricetagOutline size={36} className="text-primary-500" />,
+      title: "Dynamic Pricing",
+      desc: "Get instant quotes based on time, demand, and selected add‑ons.",
+    },
+    {
+      icon: <IoGridOutline size={36} className="text-primary-500" />,
+      title: "Multi‑Service Bundles",
+      desc: "Combine transport, dining, and experiences in a single seamless booking.",
+    },
+    {
+      icon: <IoLockClosedOutline size={36} className="text-primary-500" />,
+      title: "Secure Payments",
+      desc: "Powered by Paystack—bank‑grade encryption and instant confirmation.",
+    },
+    {
+      icon: <IoChatbubbleOutline size={36} className="text-primary-500" />,
+      title: "Real-Time Support",
+      desc: "Chat directly with Synkkafrica, providers, and drivers for instant help.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white transition-colors duration-500 flex flex-col">
+    <div className="space-y-24 px-4 max-w-7xl mx-auto">
       <HeaderNavbar showWaitlist showContact />
       {/* Hero Section */}
-      <section className="w-full bg-zinc-50 dark:bg-zinc-800 py-8 sm:py-12 px-2 sm:px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
-        <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="flex-1 w-full max-w-2xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 leading-tight">About Synkkafrica</h1>
-          <p className="mb-6 text-base sm:text-lg text-zinc-700 dark:text-zinc-300">
-            At Synkkafrica, we’re on a mission to connect you with the heart of Africa’s most authentic experiences. From cultural tours to premium dining and vibrant events, seamless auto movement, and other convenience services, our platform makes it easy to discover, plan, and book unforgettable moments. Designed for both locals and travelers, Synkkafrica offers real-time availability, secure bookings, and handpicked experiences you won’t find anywhere else.<br /><br />
-            As we launch, we invite you to explore Africa like never before – our promise is simple: exceptional experiences – one booking at a time.
+      {/* 1. Unique Value Proposition */}
+      <section className="flex flex-col lg:flex-row items-center gap-12">
+        <div className="flex-1">
+          <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">
+           One-Stop booking platform for all your luxury & convenience needs
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 space-y-4">
+            <span>
+              Synkkafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa’s most authentic experiences. We understand the unique opportunities and challenges of exploring Africa’s vibrant cultures, destinations, and services. 
+            </span>
+            <span>
+              Fast, seamless, and secure bookings—so you can focus on making memories, not logistics.
+            </span>
           </p>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="flex-1 flex justify-center w-full max-w-lg mx-auto">
+        </div>
+        <div className="flex-1 flex justify-center">
           <DotLottieReact
-            src="/animations/loading.lottie"
-            loop
+            src="/animations/hero-illustration.lottie"
             autoplay
-            style={{ width: '100%', maxWidth: 340, height: 'auto' }}
+            loop
+            style={{ width: 400, height: 400 }}
           />
-        </motion.div>
+        </div>
       </section>
 
-      {/* Core Values */}
-      <section className="w-full py-8 sm:py-12 px-2 sm:px-4 md:px-8 bg-white dark:bg-zinc-900">
-        <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-2xl md:text-3xl font-bold text-center mb-2">Our Core Values</motion.h2>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} className="text-zinc-600 dark:text-zinc-300 text-center mb-8 max-w-2xl mx-auto">
-          These principles guide everything we do and shape the way we work with our clients and each other.
-        </motion.p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 justify-center items-stretch max-w-5xl mx-auto">
-          {coreValues.map((val, i) => (
+      
+       {/* 2. Mission & Core Values */}
+      <section className="space-y-8">
+        <h2 className="text-3xl font-bold text-center">Our Mission & Core Values</h2>
+        <p className="text-center text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          To empower content creators with quick, transparent, and reliable funding—so that stories that matter can get told.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Innovation",
+              desc: "We push boundaries with cutting‑edge technology to streamline funding.",
+              color: "bg-green-50 text-green-800",
+            },
+            {
+              title: "Integrity",
+              desc: "We operate with full transparency—no hidden fees, no surprises.",
+              color: "bg-blue-50 text-blue-800",
+            },
+            {
+              title: "Support",
+              desc: "We guide you every step of the way with dedicated account advice.",
+              color: "bg-purple-50 text-purple-800",
+            },
+          ].map((v) => (
             <motion.div
-              key={val.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 * i }}
-              className={`rounded-2xl shadow-lg p-6 sm:p-8 flex flex-col items-center text-center ${val.color}`}
+              key={v.title}
+              whileHover={{ scale: 1.03 }}
+              className={`${v.color} rounded-2xl p-6 shadow-md`}
             >
-              <span className="text-3xl mb-2">{val.icon}</span>
-              <h3 className="font-bold text-lg mb-2">{val.title}</h3>
-              <p className="text-base">{val.desc}</p>
+              <h3 className="text-xl font-semibold mb-2">{v.title}</h3>
+              <p className="text-gray-700 dark:text-black">{v.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Our Story */}
-      <section className="w-full py-8 sm:py-12 px-2 sm:px-4 md:px-8 bg-zinc-50 dark:bg-zinc-800">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 items-center">
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="flex-1 w-full max-w-md mx-auto">
-            <Image
-              src="/images/brand/synkafrica-logo-single.png"
-              alt="Team at work"
-              width={400}
-              height={300}
-              className="rounded-xl shadow-lg object-cover w-full h-auto"
-              sizes="(max-width: 768px) 100vw, 400px"
-              priority
-            />
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="flex-1 w-full max-w-xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Our story</h2>
-            <p className="text-zinc-700 dark:text-zinc-300 mb-4">
-              Our story began with a passion for showcasing Africa’s rich culture, vibrant communities, and unforgettable experiences. Born from countless journeys and deep local connections, Synkkafrica was created to make booking authentic African adventures simple and accessible. We believe every trip, event, or outing should be more than a transaction – it should be a memory in the making.<br /><br />
-              As we launch, our story continues with you — the explorer, the foodie, the culture-seeker – ready to synkk with the soul of Africa.
-            </p>
-            <div className="flex items-center gap-3 mt-2">
-              <Image src="/images/brand/synkafrica-logo-single.png" alt="Temidayo Faluyi" width={40} height={40} className="rounded-full" />
-              <div>
-                <div className="font-semibold">Temidayo Faluyi</div>
-                <div className="text-sm text-zinc-500 dark:text-zinc-300">CEO & Founder</div>
-              </div>
-            </div>
-          </motion.div>
+      {/* 3. Top Features of Synkafrica Booking */}
+      <section className="space-y-8  bg-primary-500 rounded-2xl dark:bg-zinc-900 p-8">
+        <h2 className="text-3xl text-white font-bold text-center">Top Features</h2>
+        <p className="text-center text-white dark:text-gray-300 max-w-2xl mx-auto">
+          Our platform is built to make booking any service—transport, dining, beach experiences, and more—fast, reliable, and secure.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          {FEATURES.map((f) => (
+            <motion.div
+              key={f.title}
+              whileHover={{ scale: 1.03 }}
+              className="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl text-center shadow-sm flex flex-col items-center"
+            >
+              <div className="mb-4">{f.icon}</div>
+              <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-sm">{f.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="w-full py-8 sm:py-12 px-2 sm:px-4 md:px-8 bg-white dark:bg-zinc-900 flex flex-col items-center">
-        <motion.h3 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-xl md:text-2xl font-bold mb-2 text-center">Need to get in touch?</motion.h3>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} className="text-zinc-600 dark:text-zinc-300 text-center mb-6 max-w-xl">
-          If you do have a specific question, or need help resolving a problem, you can connect with our support team.
-        </motion.p>
-        <Link href="/ContactPage">
-          <button className="px-6 py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg shadow-lg transition-all duration-300">
-            Contact us
-          </button>
-        </Link>
+      
+      {/*4. Meet the Team*/}
+      <MeetOurTeam />
+
+      
+      {/* 5. Words from the CEO */}
+      <section className="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-12 flex flex-col md:flex-row items-center gap-8">
+        <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden">
+          <Image
+            src="/team/temidayo.jpg"
+            alt="CEO Photo"
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div>
+          <h3 className="text-2xl font-semibold mb-2">“Our vision is to fuel creativity.”</h3>
+          <p className="italic text-gray-600 dark:text-gray-300 mb-4">
+            — Temidayo Faluyi, Founder & CEO
+          </p>
+          <p className="text-gray-700 dark:text-gray-200">
+            At Synkkafrica, we’re building a platform to make discovering, booking, and enjoying Africa’s most authentic experiences as seamless as sharing your next adventure. Our mission is to empower every explorer, foodie, and culture-seeker with the tools—and the confidence—they need to thrive on their journey across Africa.
+          </p>
+        </div>
+      </section>
+
+       {/* 5. Social Media Handles */}
+    <ConnectWithUs />
+
+      {/* 6. Early Access / Waitlist */}
+      <section className="bg-primary-500 dark:bg-gray-900 rounded-2xl px-4 py-8 sm:px-8 sm:py-12 md:px-12 md:py-16 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl text-white font-bold mb-3 sm:mb-4">Get Early Access</h2>
+        <p className="text-white dark:text-gray-300 mb-4 sm:mb-6 text-base sm:text-lg max-w-2xl mx-auto">
+          Join our waitlist and be the first to unlock hassle‑free booking experience.
+        </p>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            // TODO: hook up to your API
+            alert(`Thanks! We'll notify ${email}`);
+          }}
+          className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center max-w-xl mx-auto"
+        >
+          <input
+            type="email"
+            required
+            placeholder="Your email address"
+            className="flex-1 min-w-0 px-4 py-3 sm:py-3 md:py-4 w-full sm:w-auto rounded-lg text-white border border-white focus:ring-2 focus:ring-orange-300 bg-primary-500/80 dark:bg-gray-900/80 placeholder-white/70 transition text-base sm:text-lg"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-label="Your email address"
+          />
+          <Button
+            variant="outline"
+            size="lg"
+            type="submit"
+            className="w-full sm:w-auto px-6 py-3 sm:py-3 md:py-4 text-white rounded-lg transition text-base sm:text-lg"
+          >
+            Join Waitlist
+          </Button>
+        </form>
       </section>
     </div>
   );

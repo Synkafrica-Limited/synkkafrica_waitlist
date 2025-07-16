@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../../components/ui/buttons";
 import HeaderNavbar from "../../components/HeaderNavbar";
+import { AnimatedField } from "../contact-us/components/AnimatedField";
 import { FloatingField } from "./components/FloatingField";
 
 const services = ["Laundry", "Beach", "Car rental", "Dining", "Full packages"];
@@ -18,6 +20,7 @@ export default function WaitlistForm() {
   const [form, setForm] = useState({
     name: "",
     email: initialEmail,
+    countryCode: "+234", // Default to Nigeria
     phone: "",
     referral: "",
     service: "",
@@ -28,6 +31,11 @@ export default function WaitlistForm() {
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
     setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }));
+  }
+
+  // Country code change handler
+  function handleCountryCodeChange(e) {
+    setForm((f) => ({ ...f, countryCode: e.target.value }));
   }
 
   function handleSubmit(e) {
@@ -110,90 +118,161 @@ export default function WaitlistForm() {
           transition={{ duration: 0.7 }}
           className="flex-1 flex flex-col items-center justify-center"
         >
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 space-y-4 animate-fade-in"
-          >
-            <h2 className="text-2xl font-bold mb-4 text-center">Let’s add you to the waitlist</h2>
-            <FloatingField label="Full Name">
-              <input
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder=" "
-                className="peer w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-                required
-              />
-            </FloatingField>
-            <FloatingField label="Email address">
-              <input
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder=" "
-                className="peer w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-                required
-              />
-            </FloatingField>
-            <FloatingField label="Phone number">
-              <input
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder=" "
-                className="peer w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-                required
-              />
-            </FloatingField>
-            <div>
-              <select
-                name="referral"
-                value={form.referral}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-                required
+          <AnimatePresence>
+            {submitted ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                className="flex flex-col items-center justify-center py-12"
               >
-                <option value="">How did you hear about us?</option>
-                {referrals.map((r) => (
-                  <option key={r} value={r}>{r}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <select
-                name="service"
-                value={form.service}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-                required
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1.2 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                  className="mb-4"
+                >
+                  <svg
+                    className="w-16 h-16 text-green-500"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <motion.path
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.7 }}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </motion.div>
+                <div className="text-xl font-semibold text-green-600 dark:text-green-400 mb-2">
+                  Added to Waitlist!
+                </div>
+                <div className="text-zinc-500 dark:text-zinc-300">
+                  Thank you for joining. We'll keep you updated!
+                </div>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.5 }}
+                onSubmit={handleSubmit}
+                className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 space-y-4 animate-fade-in"
               >
-                <option value="">Service of Interest</option>
-                {services.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                name="updates"
-                checked={form.updates}
-                onChange={handleChange}
-                className="accent-orange-500"
-              />
-              Check to receive updates via email
-            </label>
-            <Button
-              type="submit"
-              variant="filled"
-              size="md"
-              className="w-full"
-              disabled={submitted}
-            >
-              {submitted ? "Added!" : "Join waitlist"}
-            </Button>
-          </form>
+                <h2 className="text-2xl font-bold mb-4 text-center">Let’s add you to the waitlist</h2>
+                <AnimatedField label="Full Name">
+                  <input
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder=" "
+                    className="peer w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                    required
+                  />
+                </AnimatedField>
+                <AnimatedField label="Email">
+                  <input
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="joedoe@example.com"
+                    required
+                    className="peer w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                  />
+                </AnimatedField>
+                <AnimatedField label="">
+                  <div className="flex gap-2">
+                    <select
+                      name="countryCode"
+                      value={form.countryCode}
+                      onChange={handleCountryCodeChange}
+                      className="px-2 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition w-28"
+                      required
+                      aria-label="Country code"
+                    >
+                      <option value="+234">🇳🇬 +234</option>
+                      <option value="+233">🇬🇭 +233</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+27">🇿🇦 +27</option>
+                      <option value="+91">🇮🇳 +91</option>
+                      <option value="+49">🇩🇪 +49</option>
+                      <option value="+225">🇨🇮 +225</option>
+                      <option value="+250">🇷🇼 +250</option>
+                      <option value="+254">🇰🇪 +254</option>
+                      {/* Add more as needed */}
+                    </select>
+                    <input
+                      name="phone"
+                      type="tel"
+                      value={form.phone}
+                      onChange={handleChange}
+                      placeholder=" "
+                      className="peer w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                      required
+                      pattern="[0-9]{7,15}"
+                      inputMode="tel"
+                    />
+                  </div>
+                </AnimatedField>
+                <div>
+                  <select
+                    name="referral"
+                    value={form.referral}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                    required
+                  >
+                    <option value="">How did you hear about us?</option>
+                    {referrals.map((r) => (
+                      <option key={r} value={r}>{r}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    name="service"
+                    value={form.service}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                    required
+                  >
+                    <option value="">Service of Interest</option>
+                    {services.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    name="updates"
+                    checked={form.updates}
+                    onChange={handleChange}
+                    className="accent-orange-500"
+                  />
+                  Check to receive updates via email
+                </label>
+                <Button
+                  type="submit"
+                  variant="filled"
+                  size="md"
+                  className="w-full"
+                  disabled={submitted}
+                >
+                  {submitted ? "Added!" : "Join waitlist"}
+                </Button>
+              </motion.form>
+            )}
+          </AnimatePresence>
         </motion.div>
       </main>
     </div>
