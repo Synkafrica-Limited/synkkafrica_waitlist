@@ -1,0 +1,50 @@
+/* Custom styles for react-phone-input-2 to support dark mode and responsiveness */
+
+.phone-dropdown-custom {
+  background: #fff;
+  color: #222;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+  min-width: 220px;
+  max-width: 95vw;
+  z-index: 50;
+}
+.dark .phone-dropdown-custom {
+  background: #18181b !important;
+  color: #f3f4f6 !important;
+  border: 1px solid #27272a;
+}
+.phone-dropdown-custom .country {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.375rem;
+  transition: background 0.2s;
+}
+.phone-dropdown-custom .country:hover, .phone-dropdown-custom .country.selected {
+  background: #fbbf24;
+  color: #18181b;
+}
+.dark .phone-dropdown-custom .country:hover, .dark .phone-dropdown-custom .country.selected {
+  background: #fbbf24;
+  color: #18181b;
+}
+.phone-dropdown-search {
+  background: transparent;
+  color: inherit;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  margin: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
+  width: calc(100% - 2rem);
+}
+.dark .phone-dropdown-search {
+  background: #27272a;
+  color: #f3f4f6;
+  border: 1px solid #52525b;
+}
+@media (max-width: 640px) {
+  .phone-dropdown-custom {
+    min-width: 90vw;
+    font-size: 0.95rem;
+  }
+}

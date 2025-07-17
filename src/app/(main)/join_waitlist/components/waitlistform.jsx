@@ -2,13 +2,18 @@
 'use client'
 
 import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
+// Dynamically import react-phone-input-2 to avoid SSR issues
+const PhoneInput = dynamic(() => import('react-phone-input-2'), { ssr: false })
+import 'react-phone-input-2/lib/style.css'
+import './phoneinput-custom.css'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 import Button from '../../../components/ui/buttons'
 import HeaderNavbar from '../../../components/HeaderNavbar'
 import { AnimatedField } from '../../contact-us/components/AnimatedField'
 
-const services  = ['Laundry','Beach','Car rental','Dining','Full packages']
+const services  = ['Convenience Services','Beach & Resorts','Transportation(Cars, Flights)','Dining & Reservations','Packages']
 const referrals = ['Friend','Social Media','Ad','Other']
 
 export default function WaitlistForm() {
@@ -185,40 +190,29 @@ export default function WaitlistForm() {
 
                   {/* Phone + Country */}
                   <AnimatedField label="">
-                    <div className="flex gap-2">
-                      <select
-                        name="countryCode"
-                        value={form.countryCode}
-                        onChange={handleCountryCodeChange}
-                        required
-                        className="px-2 py-3 rounded border
-                                   border-zinc-200 dark:border-zinc-700
-                                   bg-zinc-50 dark:bg-zinc-800
-                                   text-zinc-900 dark:text-white
-                                   focus:outline-none focus:ring-2 focus:ring-orange-400
-                                   transition w-28"
-                      >
-                        <option value="+234">🇳🇬 +234</option>
-                        <option value="+233">🇬🇭 +233</option>
-                        <option value="+44">🇬🇧 +44</option>
-                        <option value="+1">🇺🇸 +1</option>
-                        {/* …more codes… */}
-                      </select>
-                      <input
-                        name="phone"
-                        type="tel"
-                        value={form.phone}
-                        onChange={handleChange}
-                        placeholder=" "
-                        required
-                        pattern="[0-9]{7,15}"
-                        inputMode="tel"
-                        className="peer w-full px-4 py-3 rounded border
-                                   border-zinc-200 dark:border-zinc-700
-                                   bg-zinc-50 dark:bg-zinc-800
-                                   text-zinc-900 dark:text-white
-                                   focus:outline-none focus:ring-2 focus:ring-orange-400
-                                   transition"
+                    <div className="w-full">
+                      <PhoneInput
+                        country={form.countryCode.replace('+', '') || 'ng'}
+                        value={form.countryCode + form.phone}
+                        onChange={(value, data, event, formattedValue) => {
+                          const dialCode = '+' + data.dialCode;
+                          const phone = value.replace(data.dialCode, '');
+                          setForm(f => ({ ...f, countryCode: dialCode, phone }));
+                        }}
+                        inputProps={{
+                          name: 'phone',
+                          required: true,
+                          autoFocus: false,
+                          className: 'peer w-full px-4 py-3 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition',
+                        }}
+                        containerClass="w-full"
+                        buttonClass="!border-none !bg-transparent"
+                        dropdownClass="phone-dropdown-custom"
+                        searchClass="phone-dropdown-search"
+                        enableSearch
+                        disableSearchIcon={false}
+                        specialLabel=""
+                        autoFormat={true}
                       />
                     </div>
                   </AnimatedField>
