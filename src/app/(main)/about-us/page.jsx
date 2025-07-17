@@ -10,7 +10,7 @@ import Button from "@/app/components/ui/buttons";
 import HeaderNavbar from "@/app/components/HeaderNavbar";
 import MeetOurTeam from "./components/meetourteam";
 import ConnectWithUs from "./components/connectwithus";
-import AboutSynkkafrica from "./components/aboutsynkkafrica";
+import AboutSynkkafrica from "./components/AboutSynkkafrica";
 
 export default function AboutPage() {
   const [email, setEmail] = useState("");
