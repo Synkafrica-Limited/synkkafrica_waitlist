@@ -12,8 +12,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className="scroll-smooth">
       <body className="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white transition-colors duration-500">
         {children}
+              <Footer/>
       </body>
-      <Footer/>
     </html>
   );
 }

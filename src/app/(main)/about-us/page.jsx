@@ -10,6 +10,7 @@ import Button from "@/app/components/ui/buttons";
 import HeaderNavbar from "@/app/components/HeaderNavbar";
 import MeetOurTeam from "./components/meetourteam";
 import ConnectWithUs from "./components/connectwithus";
+import AboutSynkkafrica from "./components/aboutsynkkafrica";
 
 export default function AboutPage() {
   const [email, setEmail] = useState("");
@@ -66,7 +67,7 @@ export default function AboutPage() {
           </motion.h1>
           <motion.p className="text-gray-600 dark:text-gray-300 space-y-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
             <span>
-              Synkkafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa’s most authentic experiences. We understand the unique opportunities and challenges of exploring Africa’s vibrant cultures, destinations, and services. 
+              Synkkafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa’s most authentic experiences. We understand the unique opportunities and challenges of exploring Africa’s vibrant cultures, destinations, and services.
             </span>
             <span>
               Fast, seamless, and secure bookings—so you can focus on making memories, not logistics.
@@ -82,6 +83,8 @@ export default function AboutPage() {
           />
         </motion.div>
       </motion.section>
+
+      {/* <AboutSynkkafrica /> */}
 
       {/* 2. Mission & Core Values */}
       <motion.section
@@ -196,7 +199,15 @@ export default function AboutPage() {
             — Temidayo Faluyi, Founder & CEO
           </p>
           <p className="text-gray-700 dark:text-gray-200">
-            At Synkkafrica, we’re building a platform to make discovering, booking, and enjoying Africa’s most authentic experiences as seamless as sharing your next adventure. Our mission is to empower every explorer, foodie, and culture-seeker with the tools—and the confidence—they need to thrive on their journey across Africa.
+            Our story began with a passion for showcasing Africa’s rich
+            culture, vibrant communities, and unforgettable experiences.
+            Born from countless journeys and deep local connections,
+            Synkkafrica was created to make booking authentic African
+            adventures simple and accessible. We believe every trip, event,
+            or outing should be more than a transaction -- it should be a
+            memory in the making.As we launch, our story continues with you — the explorer,
+            the foodie, the culture-seeker -- ready to synkk with the soul
+            of Africa.
           </p>
         </motion.div>
       </motion.section>
