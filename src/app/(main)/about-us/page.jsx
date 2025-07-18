@@ -98,7 +98,7 @@ export default function AboutPage() {
           Our Mission & Core Values
         </motion.h2>
         <motion.p className="text-center text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
-          To empower content creators with quick, transparent, and reliable funding—so that stories that matter can get told.
+          Our vision is to empower African culture through technology.
         </motion.p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
@@ -199,15 +199,9 @@ export default function AboutPage() {
             — Temidayo Faluyi, Founder & CEO
           </p>
           <p className="text-gray-700 dark:text-gray-200">
-            Our story began with a passion for showcasing Africa’s rich
-            culture, vibrant communities, and unforgettable experiences.
-            Born from countless journeys and deep local connections,
-            Synkkafrica was created to make booking authentic African
-            adventures simple and accessible. We believe every trip, event,
-            or outing should be more than a transaction -- it should be a
-            memory in the making.As we launch, our story continues with you — the explorer,
-            the foodie, the culture-seeker -- ready to synkk with the soul
-            of Africa.
+            Africa's culture is incredible, but planning experiences here shouldn't be complicated. We started synKKafrica because we saw talented local businesses struggling to reach travelers, while visitors missed out on the real experiences that make this continent special.
+            Born from countless journeys and deep local connections, we created a platform where booking African adventures is simple and stress-free. We believe every trip should create lasting memories, not planning headaches.
+            Whether you're a culture-seeker, foodie, or adventurer ready to explore — your journey starts when you get synKKed with the soul of Africa.
           </p>
         </motion.div>
       </motion.section>

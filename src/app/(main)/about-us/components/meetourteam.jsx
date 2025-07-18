@@ -17,7 +17,7 @@ const TEAM = [
     photo: "/team/ezra.jpg",
   },
   {
-    name: "Issac Damie",
+    name: "Damilola Olanrewaju",
     role: "Co-founder, Partnerships",
     photo: "/team/issac.jpg",
   },
