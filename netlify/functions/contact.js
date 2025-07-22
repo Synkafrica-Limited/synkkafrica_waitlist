@@ -18,7 +18,7 @@ exports.handler = async function(event) {
 
     // Send notification to support team
     const supportMsg = {
-      to: 'support@synkkafrica.com',
+      to: 'info@synkkafrica.com',
       from: 'no-reply@synkkafrica.com', // Use a verified sender
       subject: 'New Contact Form Message',
       text: `New contact form message:\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,

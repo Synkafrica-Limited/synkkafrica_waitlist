@@ -28,7 +28,7 @@ export default function AboutPage() {
     {
       icon: <IoGridOutline size={36} className="text-primary-500" />,
       title: "Multi‑Service Bundles",
-      desc: "Combine transport, dining, and experiences in a single seamless booking.",
+      desc: "Combine transport, dining and experiences in a single seamless booking.",
     },
     {
       icon: <IoLockClosedOutline size={36} className="text-primary-500" />,
@@ -63,14 +63,14 @@ export default function AboutPage() {
       >
         <motion.div className="flex-1" initial={{ x: -40, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }} viewport={{ once: true }}>
           <motion.h1 className="text-4xl lg:text-5xl font-extrabold mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
-            One-Stop booking platform for all your luxury & convenience needs
+            One-Stop booking platform for all your cultural & travel needs
           </motion.h1>
           <motion.p className="text-gray-600 dark:text-gray-300 space-y-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
             <span>
-              Synkkafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa’s most authentic experiences. We understand the unique opportunities and challenges of exploring Africa’s vibrant cultures, destinations, and services.
+              SynKKafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa's most genuine experiences. We understand that exploring Africa's vibrant cultures and destinations shouldn't mean dealing with fragmented platforms and unreliable vendors. Fast, seamless and secure bookings—so you can focus on making memories, not logistics.
             </span>
             <span>
-              Fast, seamless, and secure bookings—so you can focus on making memories, not logistics.
+              Fast seamless and secure bookings—so you can focus on making memories, not logistics.
             </span>
           </motion.p>
         </motion.div>
@@ -194,7 +194,7 @@ export default function AboutPage() {
           />
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
-          <h3 className="text-2xl font-semibold mb-2">“Our vision is to fuel creativity.”</h3>
+          <h3 className="text-2xl font-semibold mb-2">“Our vision is to empower African culture through technology.”</h3>
           <p className="italic text-gray-600 dark:text-gray-300 mb-4">
             — Temidayo Faluyi, Founder & CEO
           </p>

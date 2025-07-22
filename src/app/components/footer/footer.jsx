@@ -56,7 +56,7 @@ export default function Footer() {
 
       {/* bottom bar */}
       <div className="mt-8 border-t border-gray-300 dark:border-gray-800 pt-4 text-center text-xs text-gray-500 dark:text-gray-400">
-        © {new Date().getFullYear()} Synkafrica — All Rights Reserved
+        © {new Date().getFullYear()} Synkkafrica — All Rights Reserved
       </div>
     </footer>
   );

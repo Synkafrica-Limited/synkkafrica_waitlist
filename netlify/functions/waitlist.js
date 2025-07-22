@@ -39,7 +39,7 @@ exports.handler = async function(event) {
       from: 'no-reply@synkkafrica.com',
       subject: 'You’re on the Synkkafrica Waitlist!',
       text: `Hi ${name || ''},\n\nThank you for joining the Synkkafrica waitlist! We’ll keep you updated with the latest news and early access.\n\nBest,\nThe Synkkafrica Team`,
-      html: `<h2>Thank you for joining the Synkkafrica waitlist!</h2><p>Hi${name ? ' ' + name : ''},</p><p>We’ll keep you updated with the latest news and early access.</p><p>Best,<br/>The Synkkafrica Team</p>`
+      html: `<h2>Thank you for joining the Synkkafrica waitlist!</h2><p>Hi${name ? ' ' + name : ''},</p><p>We’ll keep you updated with the latest news and early access.</p><p>Best Regards,<br/>The Synkkafrica Team</p>`
     };
     await sgMail.send(userMsg);
 
