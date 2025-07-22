@@ -69,9 +69,6 @@ export default function AboutPage() {
             <span>
               SynKKafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa's most genuine experiences. We understand that exploring Africa's vibrant cultures and destinations shouldn't mean dealing with fragmented platforms and unreliable vendors. Fast, seamless and secure bookings—so you can focus on making memories, not logistics.
             </span>
-            <span>
-              Fast seamless and secure bookings—so you can focus on making memories, not logistics.
-            </span>
           </motion.p>
         </motion.div>
         <motion.div className="flex-1 flex justify-center" initial={{ x: 40, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }} viewport={{ once: true }}>

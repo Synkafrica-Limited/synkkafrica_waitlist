@@ -30,19 +30,19 @@ export default function ConnectWithUs() {
             <div className="flex items-center space-x-3">
               <span className="font-semibold text-gray-800 dark:text-gray-200">Email:</span>
               <a href="mailto:support@synkafrica.com" className="text-primary-600 hover:underline">
-                support@synkafrica.com
+                info@synkkafrica.com
               </a>
             </div>
             <div className="flex items-center space-x-3">
               <span className="font-semibold text-gray-800 dark:text-gray-200">Phone:</span>
-              <a href="tel:+2348001234567" className="text-primary-600 hover:underline">
-                +234 800 123 4567
+              <a href="tel:+23425296409" className="text-primary-600 hover:underline">
+                +234 2529 6409
               </a>
             </div>
             <div className="flex items-center space-x-3">
               <span className="font-semibold text-gray-800 dark:text-gray-200">Office:</span>
               <address className="not-italic text-gray-600 dark:text-gray-300">
-                12B Isaac John, Victoria Island, Lagos
+                3, Adamo Street, Lekki Phase 2, Lagos, Nigeria
               </address>
             </div>
           </div>
