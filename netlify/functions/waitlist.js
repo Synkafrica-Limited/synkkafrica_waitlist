@@ -18,7 +18,7 @@ exports.handler = async function(event) {
 
     // Compose the email
     const msg = {
-      to: 'support@synkkafrica.com',
+      to: 'info@synkkafrica.com',
       from: 'no-reply@synkkafrica.com', // Use a verified sender
       subject: 'New Waitlist Signup',
       text: `New waitlist signup:\nName: ${name}\nEmail: ${email}\nPhone: ${countryCode} ${phone}\nReferral: ${referral}\nService: ${service}`,
