@@ -15,9 +15,24 @@ export default function ContactPage() {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
+    try {
+      const res = await fetch('/.netlify/functions/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Failed to send message');
+      // Optionally, clear the form after successful submission
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      alert('There was a problem sending your message. Please try again.');
+      setSubmitted(false);
+      return;
+    }
+    // Show success for 3s, then reset
     setTimeout(() => setSubmitted(false), 3000);
   };
 
