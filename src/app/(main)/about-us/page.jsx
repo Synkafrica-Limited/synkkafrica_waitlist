@@ -63,7 +63,7 @@ export default function AboutPage() {
       >
         <motion.div className="flex-1" initial={{ x: -40, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }} viewport={{ once: true }}>
           <motion.h1 className="text-4xl lg:text-5xl font-extrabold mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
-            One-Stop booking platform for all your cultural & travel needs
+            Revolutionizing African Cultural Tourism
           </motion.h1>
           <motion.p className="text-gray-600 dark:text-gray-300 space-y-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
             <span>
