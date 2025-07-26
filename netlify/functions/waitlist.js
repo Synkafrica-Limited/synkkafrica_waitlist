@@ -27,7 +27,7 @@ exports.handler = async function(event) {
       to: email,
       from: { email: 'no-reply@synkkafrica.com', name: 'Synkkafrica Team' },
       subject: 'You’re on the Synkkafrica Waitlist!', 
-      templateId: 'YOUR_LEGACY_TEMPLATE_ID',
+      templateId: '0ffcaf65-dc47-4c17-853e-3a43153ec4e7',
       substitutions: {
         name: name,
         email: email,
