@@ -28,7 +28,7 @@ exports.handler = async function(event) {
         email: 'no-reply@synkkafrica.com',
         name: 'Synkkafrica Team'
       },
-      templateId: 'd-c16b0c5a05e04a2183bf84044764d622',
+      templateId: 'd-d73330e5c3ea411095919532b68afbfe',
       dynamic_template_data: {
         name,
         email,
