@@ -32,9 +32,6 @@ exports.handler = async function(event) {
         name: name,
         email: email,
       },
-      // html or text can be omitted if your template contains all content.
-      // If your template includes <%body%>, supply html/text here:
-      // html: '<p>Some additional content</p>'
     };
 
     await sgMail.send(userMsg);
