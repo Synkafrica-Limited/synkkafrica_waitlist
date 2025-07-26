@@ -32,9 +32,6 @@ exports.handler = async function(event) {
       dynamic_template_data: {
         name,
         email,
-        phone: `${countryCode} ${phone}`,
-        referral,
-        service
       }
     };
 
