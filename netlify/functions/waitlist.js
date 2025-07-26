@@ -12,15 +12,21 @@ exports.handler = async function(event) {
     const { name, email, phone, countryCode, referral, service } = data;
 
     // Internal team notification
-    const msg = {
+   const waitlistNotification = {
       to: 'info@synkkafrica.com',
       from: 'no-reply@synkkafrica.com',
-      subject: 'New Waitlist Signup',
-      text: `New waitlist signup:\nName: ${name}\nEmail: ${email}\nPhone: ${countryCode} ${phone}\nReferral: ${referral}\nService: ${service}`,
-      html: `<h2>New Waitlist Signup</h2><p><b>Name:</b> ${name}</p><p><b>Email:</b> ${email}</p><p><b>Phone:</b> ${countryCode} ${phone}</p><p><b>Referral:</b> ${referral}</p><p><b>Service:</b> ${service}</p>`
+      templateId: '1383341c-9265-467d-9874-06efa9dcb426',
+      subject: 'New Waitlist Signup', // Only needed if your template uses <%subject%>
+      substitutions: {
+        name: name,
+        email: email,
+        phone: phone,
+        countryCode: countryCode,
+        referral: referral,
+        service: service
+      }
     };
-
-    await sgMail.send(msg);
+    await sgMail.send(waitlistNotification);
 
 // Confirmation email using a dynamic template
     const userMsg = {
