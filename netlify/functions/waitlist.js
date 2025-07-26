@@ -37,24 +37,20 @@ exports.handler = async function (event) {
     const userMsg = {
       to: email,
       from: {
-        email: "no-reply@synkkafrica.com",
+        email: "no-reply@synkkafrica.com", // Must be verified in SendGrid
         name: "Synkkafrica Team",
       },
-      replyTo: "info@synkkafrica.com",
-      subject: "You’re on the Synkkafrica Waitlist!",
-      headers: {
-        "X-Sent-Using": "SendGrid-API",
-        "X-Transport": "Synkkafrica Waitlist",
+      templateId: "d-c16b0c5a05e04a2183bf84044764d62", 
+      dynamic_template_data: {
+        name,
+        email,
+        phone: `${countryCode} ${phone}`,
+        referral,
+        service,
       },
-      categories: ["waitlist-confirmation"],
-      custom_args: {
-        app: "waitlist",
-      },
-      text: `Hi ${
-        name || ""
-      },\n\nThank you for joining the Synkkafrica waitlist...`,
-      html: `<h2>Thank you for joining the Synkkafrica waitlist...</h2>`,
     };
+
+    await sgMail.send(userMsg);
 
     await sgMail.send(userMsg);
 
