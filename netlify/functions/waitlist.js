@@ -1,5 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setSubstitutionWrappers('{{', '}}');
 
 exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') {
@@ -25,41 +26,22 @@ exports.handler = async function(event) {
     const userMsg = {
       to: email,
       from: { email: 'no-reply@synkkafrica.com', name: 'Synkkafrica Team' },
-      templateId: 'd-d73330e5c3ea411095919532b68afbfe',
-      dynamic_template_data: {
-        name,
-        email,
-        // Only needed if your template's subject is set to {{{subject}}}
-        subject: 'You’re on the Synkkafrica Waitlist!',
+      subject: 'You’re on the Synkkafrica Waitlist!', 
+      templateId: 'YOUR_LEGACY_TEMPLATE_ID',
+      substitutions: {
+        name: name,
+        email: email,
       },
-      // Optional: include asm.group_id if your template uses {{unsubscribe}}
-      asm: { group_id: 29452 },
-    };
-    try {
-      await sgMail.send(userMsg);
-    } catch (sendgridErr) {
-      console.error('SendGrid Template Error:', sendgridErr);
-
-      // Fallback: plain email
-      const fallbackMsg = {
-        to: email,
-        from: 'no-reply@synkkafrica.com',
-        subject: 'You’re on the Synkkafrica Waitlist!',
-        text: `Hi ${name || ''},\n\nThank you for joining the Synkkafrica waitlist! We’ll keep you updated with the latest news and early access.\n\nBest,\nThe Synkkafrica Team`
-      };
-      await sgMail.send(fallbackMsg);
-    }
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ success: true })
+      // html or text can be omitted if your template contains all content.
+      // If your template includes <%body%>, supply html/text here:
+      // html: '<p>Some additional content</p>'
     };
 
+    await sgMail.send(userMsg);
+
+    return { statusCode: 200, body: JSON.stringify({ success: true }) };
   } catch (err) {
-    console.error('Waitlist handler failed:', err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message })
-    };
+    console.error(err);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };
