@@ -21,20 +21,20 @@ exports.handler = async function(event) {
 
     await sgMail.send(msg);
 
-    // User confirmation with dynamic template
+// Confirmation email using a dynamic template
     const userMsg = {
       to: email,
-      from: {
-        email: 'no-reply@synkkafrica.com',
-        name: 'Synkkafrica Team'
-      },
+      from: { email: 'no-reply@synkkafrica.com', name: 'Synkkafrica Team' },
       templateId: 'd-d73330e5c3ea411095919532b68afbfe',
       dynamic_template_data: {
         name,
         email,
-      }
+        // Only needed if your template's subject is set to {{{subject}}}
+        subject: 'You’re on the Synkkafrica Waitlist!',
+      },
+      // Optional: include asm.group_id if your template uses {{unsubscribe}}
+      asm: { group_id: 29452 },
     };
-
     try {
       await sgMail.send(userMsg);
     } catch (sendgridErr) {
