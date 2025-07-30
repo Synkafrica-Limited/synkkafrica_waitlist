@@ -2,6 +2,7 @@ const sgMail = require('@sendgrid/mail');
 const { neon } = require('@netlify/neon');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setSubstitutionWrappers('{{', '}}');
 const sql = neon(); // Uses NETLIFY_DATABASE_URL
 
 function validate(form) {
@@ -57,29 +58,35 @@ exports.handler = async function(event) {
       )
     `;
 
-    // Send notification to support
-    const msg = {
-      to: 'support@synkkafrica.com',
+      // Internal team notification
+   const waitlistNotification = {
+      to: 'info@synkkafrica.com',
       from: 'no-reply@synkkafrica.com',
-      subject: 'New Waitlist Signup',
-      text: `New waitlist signup:\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.countryCode} ${form.phone}\nReferral: ${form.referral}\nService: ${form.service}`,
-      html: `<h2>New Waitlist Signup</h2>
-        <p><b>Name:</b> ${form.name}</p>
-        <p><b>Email:</b> ${form.email}</p>
-        <p><b>Phone:</b> ${form.countryCode} ${form.phone}</p>
-        <p><b>Referral:</b> ${form.referral}</p>
-        <p><b>Service:</b> ${form.service}</p>`
+      templateId: '1383341c-9265-467d-9874-06efa9dcb426',
+      subject: 'New Waitlist Signup', // Only needed if your template uses <%subject%>
+      substitutions: {
+        name: name,
+        email: email,
+        phone: phone,
+        countryCode: countryCode,
+        referral: referral,
+        service: service
+      }
     };
-    await sgMail.send(msg);
+    await sgMail.send(waitlistNotification);
 
-    // Send confirmation to user
+// Confirmation email using a dynamic template
     const userMsg = {
-      to: form.email,
-      from: 'no-reply@synkkafrica.com',
-      subject: 'You’re on the Synkkafrica Waitlist!',
-      text: `Hi ${form.name || ''},\n\nThank you for joining the Synkkafrica waitlist! We’ll keep you updated with the latest news and early access.\n\nBest,\nThe Synkkafrica Team`,
-      html: `<h2>Thank you for joining the Synkkafrica waitlist!</h2><p>Hi${form.name ? ' ' + form.name : ''},</p><p>We’ll keep you updated with the latest news and early access.</p><p>Best,<br/>The Synkkafrica Team</p>`
+      to: email,
+      from: { email: 'no-reply@synkkafrica.com', name: 'Synkkafrica Team' },
+      subject: 'You’re on the Synkkafrica Waitlist!', 
+      templateId: '0ffcaf65-dc47-4c17-853e-3a43153ec4e7',
+      substitutions: {
+        name: name,
+        email: email,
+      },
     };
+
     await sgMail.send(userMsg);
 
     return {
