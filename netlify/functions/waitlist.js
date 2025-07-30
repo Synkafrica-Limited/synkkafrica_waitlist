@@ -37,6 +37,7 @@ exports.handler = async function(event) {
     // Check for duplicate email
     const [existing] = await sql`SELECT id FROM waitlist WHERE email = ${form.email}`;
     if (existing) {
+      // Only return 409, do not send confirmation email
       return {
         statusCode: 409,
         body: JSON.stringify({ error: 'This email is already on the waitlist.' }),
@@ -58,36 +59,45 @@ exports.handler = async function(event) {
       )
     `;
 
-      // Internal team notification
-   const waitlistNotification = {
+    // Internal team notification
+    const waitlistNotification = {
       to: 'info@synkkafrica.com',
       from: 'no-reply@synkkafrica.com',
       templateId: '1383341c-9265-467d-9874-06efa9dcb426',
-      subject: 'New Waitlist Signup', // Only needed if your template uses <%subject%>
+      subject: 'New Waitlist Signup',
       substitutions: {
-        name: name,
-        email: email,
-        phone: phone,
-        countryCode: countryCode,
-        referral: referral,
-        service: service
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        countryCode: form.countryCode,
+        referral: form.referral,
+        service: form.service
       }
     };
-    await sgMail.send(waitlistNotification);
+    try {
+      await sgMail.send(waitlistNotification);
+    } catch (err) {
+      // Log but don't fail the request if notification fails
+      console.error('SendGrid team notification error:', err.message);
+    }
 
-// Confirmation email using a dynamic template
+    // Confirmation email using a dynamic template (only for new users)
     const userMsg = {
-      to: email,
+      to: form.email,
       from: { email: 'no-reply@synkkafrica.com', name: 'Synkkafrica Team' },
-      subject: 'You’re on the Synkkafrica Waitlist!', 
+      subject: 'You’re on the Synkkafrica Waitlist!',
       templateId: '0ffcaf65-dc47-4c17-853e-3a43153ec4e7',
       substitutions: {
-        name: name,
-        email: email,
+        name: form.name,
+        email: form.email,
       },
     };
-
-    await sgMail.send(userMsg);
+    try {
+      await sgMail.send(userMsg);
+    } catch (err) {
+      // Log but don't fail the request if confirmation fails
+      console.error('SendGrid user confirmation error:', err.message);
+    }
 
     return {
       statusCode: 200,
