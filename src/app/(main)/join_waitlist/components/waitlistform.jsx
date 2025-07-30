@@ -30,6 +30,7 @@ export default function WaitlistForm() {
     updates:     false,
   })
   const [submitted, setSubmitted] = useState(false)
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
   function handleChange(e) {
@@ -50,6 +51,7 @@ export default function WaitlistForm() {
     e.preventDefault();
     setSubmitted(true);
     setError("");
+    setSuccess(false);
     try {
       const res = await fetch('/.netlify/functions/waitlist', {
         method: 'POST',
@@ -66,17 +68,23 @@ export default function WaitlistForm() {
           setError("There was a problem joining the waitlist. Please try again.");
         }
         setSubmitted(false);
+        setSuccess(false);
         return;
       }
+      setSuccess(true);
       // Optionally, you can clear the form here
       // setForm({ ...form, name: '', email: '', phone: '', referral: '', service: '', updates: false });
     } catch (err) {
       setError("There was a problem joining the waitlist. Please try again.");
       setSubmitted(false);
+      setSuccess(false);
       return;
     }
     // Show success for 2s, then reset
-    setTimeout(() => setSubmitted(false), 2000);
+    setTimeout(() => {
+      setSubmitted(false);
+      setSuccess(false);
+    }, 2000);
   }
 
   return (
@@ -124,57 +132,58 @@ export default function WaitlistForm() {
           className="flex-1 flex flex-col items-center justify-center"
         >
           <AnimatePresence>
-            {submitted
-              ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                  className="flex flex-col items-center justify-center py-12"
+            {success ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                className="flex flex-col items-center justify-center py-12"
+                aria-live="polite"
+              >
+                <motion.svg
+                  className="w-16 h-16 text-green-500 mb-4"
+                  fill="none" stroke="currentColor" strokeWidth={2}
+                  viewBox="0 0 24 24"
+                  initial={{ scale: 0 }} animate={{ scale: 1.2 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 10 }}
                 >
-                  <motion.svg
-                    className="w-16 h-16 text-green-500 mb-4"
-                    fill="none" stroke="currentColor" strokeWidth={2}
-                    viewBox="0 0 24 24"
-                    initial={{ scale: 0 }} animate={{ scale: 1.2 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 10 }}
-                  >
-                    <motion.path
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 0.7 }}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </motion.svg>
-                  <h3 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-2">
-                    Added to Waitlist!
-                  </h3>
-                  <p className="text-zinc-500 dark:text-zinc-300">
-                    Thank you for joining. We'll keep you updated!
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5 }}
-                  onSubmit={handleSubmit}
-                  className="w-full max-w-md bg-white dark:bg-zinc-900
-                             rounded-xl shadow-lg p-8 space-y-4"
-                >
-                  {error && (
-                    <div className="text-red-600 dark:text-red-400 text-sm mb-2 text-center">
-                      {error}
-                    </div>
-                  )}
-                  <h2 className="text-2xl font-bold text-center mb-4">
-                    Let’s add you to the waitlist
-                  </h2>
+                  <motion.path
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.7 }}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </motion.svg>
+                <h3 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-2">
+                  Added to Waitlist!
+                </h3>
+                <p className="text-zinc-500 dark:text-zinc-300">
+                  Thank you for joining. We'll keep you updated!
+                </p>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.5 }}
+                onSubmit={handleSubmit}
+                className="w-full max-w-md bg-white dark:bg-zinc-900
+                           rounded-xl shadow-lg p-8 space-y-4"
+                aria-label="Waitlist signup form"
+              >
+                {error && (
+                  <div className="text-red-600 dark:text-red-400 text-sm mb-2 text-center" role="alert">
+                    {error}
+                  </div>
+                )}
+                <h2 className="text-2xl font-bold text-center mb-4">
+                  Let’s add you to the waitlist
+                </h2>
 
                   <AnimatedField label="Full Name">
                     <input
