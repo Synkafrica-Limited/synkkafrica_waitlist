@@ -1,0 +1,12 @@
+-- SQL for Neon/Postgres waitlist table
+CREATE TABLE IF NOT EXISTS waitlist (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  country_code VARCHAR(10) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  referral VARCHAR(50) NOT NULL,
+  service VARCHAR(50) NOT NULL,
+  updates BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
