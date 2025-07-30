@@ -30,6 +30,7 @@ export default function WaitlistForm() {
     updates:     false,
   })
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState("");
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target
@@ -37,26 +38,40 @@ export default function WaitlistForm() {
       ...f,
       [name]: type === 'checkbox' ? checked : value
     }))
+    setError("");
   }
 
   function handleCountryCodeChange(e) {
     setForm(f => ({ ...f, countryCode: e.target.value }))
+    setError("");
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
+    setError("");
     try {
       const res = await fetch('/.netlify/functions/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error('Failed to join waitlist');
+      const result = await res.json();
+      if (!res.ok) {
+        if (res.status === 409) {
+          setError("This email is already on the waitlist.");
+        } else if (res.status === 400 && result.error) {
+          setError(result.error);
+        } else {
+          setError("There was a problem joining the waitlist. Please try again.");
+        }
+        setSubmitted(false);
+        return;
+      }
       // Optionally, you can clear the form here
       // setForm({ ...form, name: '', email: '', phone: '', referral: '', service: '', updates: false });
     } catch (err) {
-      alert('There was a problem joining the waitlist. Please try again.');
+      setError("There was a problem joining the waitlist. Please try again.");
       setSubmitted(false);
       return;
     }
@@ -152,6 +167,11 @@ export default function WaitlistForm() {
                   className="w-full max-w-md bg-white dark:bg-zinc-900
                              rounded-xl shadow-lg p-8 space-y-4"
                 >
+                  {error && (
+                    <div className="text-red-600 dark:text-red-400 text-sm mb-2 text-center">
+                      {error}
+                    </div>
+                  )}
                   <h2 className="text-2xl font-bold text-center mb-4">
                     Let’s add you to the waitlist
                   </h2>
