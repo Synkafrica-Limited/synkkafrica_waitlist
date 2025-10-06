@@ -174,18 +174,24 @@ export default function AboutPage() {
         <MeetOurTeam />
       </motion.div>
 
-      {/* 5. Words from the CEO */}
+      {/* 5. Our Story Section */}
       <motion.section
-        className="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-12 flex flex-col md:flex-row items-center gap-8"
+        className="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-8 md:p-12 flex flex-col lg:flex-row items-center gap-8"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, type: "spring" }}
       >
-        <motion.div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden" initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
+        <motion.div 
+          className="flex-1 lg:max-w-md w-full h-64 md:h-80 relative rounded-2xl overflow-hidden" 
+          initial={{ scale: 0.8, opacity: 0 }} 
+          whileInView={{ scale: 1, opacity: 1 }} 
+          transition={{ duration: 0.7 }} 
+          viewport={{ once: true }}
+        >
           <Image
-            src="/team/temidayo.jpg"
-            alt="CEO Photo"
+            src="/images/about/about_1.png"
+            alt="Team working together"
             fill
             className="object-cover"
           />

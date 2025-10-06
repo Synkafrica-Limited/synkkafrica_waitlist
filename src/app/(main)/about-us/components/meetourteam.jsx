@@ -19,7 +19,7 @@ const TEAM = [
   {
     name: "Damilola Olanrewaju",
     role: "Chief Technology Officer",
-    photo: "/team/issac.jpg",
+    photo: "/team/damie.jpeg",
   },
   {
     name: "Paul Sola-Eniolawun",
@@ -39,6 +39,12 @@ const TEAM = [
       photo: "/team/gaius.jpg",
     },
 
+    {
+      name: "Chelsea Jegede",
+      role: "Head of Partnership",
+      photo: "/team/chelsea.jpeg",
+    },
+
 ];
 
 export default function MeetOurTeam() {
@@ -54,7 +60,7 @@ export default function MeetOurTeam() {
               key={member.name}
               className="rounded-2xl bg-gray-50 dark:bg-gray-800 shadow-md flex flex-col items-center"
             >
-              <div className="w-full h-64 relative rounded-t-2xl overflow-hidden">
+              <div className="w-full h-100 relative rounded-t-2xl overflow-hidden">
                 <Image
                   src={member.photo}
                   alt={member.name}
