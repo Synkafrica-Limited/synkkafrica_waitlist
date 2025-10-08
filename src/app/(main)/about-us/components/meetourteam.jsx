@@ -19,7 +19,7 @@ const TEAM = [
   {
     name: "Damilola Olanrewaju",
     role: "Chief Technology Officer",
-    photo: "/team/damie.jpeg",
+    photo: "/team/damie.jpg",
   },
   {
     name: "Paul Sola-Eniolawun",
@@ -42,7 +42,7 @@ const TEAM = [
     {
       name: "Chelsea Jegede",
       role: "Head of Partnership",
-      photo: "/team/chelsea.jpeg",
+      photo: "/team/chelsea.jpg",
     },
 
 ];

@@ -72,11 +72,19 @@ export default function AboutPage() {
           </motion.p>
         </motion.div>
         <motion.div className="flex-1 flex justify-center" initial={{ x: 40, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }} viewport={{ once: true }}>
-          <DotLottieReact
+          {/* <DotLottieReact
             src="/animations/hero-illustration.lottie"
             autoplay
             loop
             style={{ width: 400, height: 400 }}
+          /> */}
+          <Image
+            src="/images/waitlist_image.jpg"
+            alt="Hero Illustration"
+            width={500}
+            height={500}
+            className="object-contain"
+            style={{ maxWidth: "100%", height: "auto", borderRadius: "16px" }}
           />
         </motion.div>
       </motion.section>
@@ -176,38 +184,66 @@ export default function AboutPage() {
 
       {/* 5. Our Story Section */}
       <motion.section
-        className="bg-gray-50 dark:bg-zinc-900 rounded-2xl p-8 md:p-12 flex flex-col lg:flex-row items-center gap-8"
+        className="rounded-2xl p-4 md:p-8"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, type: "spring" }}
       >
-        <motion.div 
-          className="flex-1 lg:max-w-md w-full h-64 md:h-80 relative rounded-2xl overflow-hidden" 
-          initial={{ scale: 0.8, opacity: 0 }} 
-          whileInView={{ scale: 1, opacity: 1 }} 
-          transition={{ duration: 0.7 }} 
-          viewport={{ once: true }}
-        >
-          <Image
-            src="/images/about/about_1.png"
-            alt="Team working together"
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
-          <h3 className="text-2xl font-semibold mb-2">“Our vision is to empower African culture through technology.”</h3>
-          <p className="italic text-gray-600 dark:text-gray-300 mb-4">
-            — Temidayo Faluyi, Founder & CEO
-          </p>
-          <p className="text-gray-700 dark:text-gray-200">
-            Africa's culture is incredible, but planning experiences here shouldn't be complicated. We started synKKafrica because we saw talented local businesses struggling to reach travelers, while visitors missed out on the real experiences that make this continent special.
-            Born from countless journeys and deep local connections, we created a platform where booking African adventures is simple and stress-free. We believe every trip should create lasting memories, not planning headaches.
-            Whether you're a culture-seeker, foodie, or adventurer ready to explore — your journey starts when you get synKKed with the soul of Africa.
-          </p>
-        </motion.div>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-stretch gap-6">
+            {/* Left: Image */}
+            <motion.div
+              className="flex-1 w-full rounded-2xl overflow-hidden shadow-lg"
+              initial={{ scale: 0.95, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <div className="w-full h-64 sm:h-80 md:h-96 lg:h-full">
+                <Image
+                  src="/images/our_story.jpg"
+                  alt="Team working together around a table"
+                  width={1200}
+                  height={800}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </motion.div>
+
+            {/* Right: Card */}
+            <motion.div
+              className="flex-1 w-full lg:max-w-xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="h-full bg-blue-50 dark:bg-[#0f172a] rounded-2xl p-6 md:p-8 shadow-md flex flex-col justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Our story</h3>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4">
+                    Our story began with a passion for showcasing Africa's rich culture, vibrant communities, and unforgettable experiences. Born from countless journeys and deep local connections, Synkkafrica was created to make booking authentic African adventures simple and accessible.
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    We believe every trip, event, or outing should be more than a transaction it should be a memory in the making. As we launch, our story continues with you the explorer, the foodie, the culture‑seeker ready to synkk with the soul of Africa.
+                  </p>
+                </div>
+
+                <div className="mt-6 flex items-center gap-4">
+                  <img src="/team/temidayo.jpg" alt="Temidayo Faluyi" className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-gray-800" />
+                  <div>
+                    <div className="font-semibold text-gray-900 dark:text-white">Temidayo Faluyi</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">CEO & Founder</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </motion.section>
+
+
 
       {/* 5. Social Media Handles */}
       <motion.div
