@@ -17,8 +17,20 @@ const montserrat = Montserrat({
 
 
 export const metadata = {
-  title: "SynKKafrica",
-  description: "Empowering mobility across Africa",
+  title: "Synkkafrica — Book Authentic African Adventures",
+  description: "Discover and book authentic African experiences — seamless bookings, local hosts, unforgettable memories.",
+  openGraph: {
+    title: "Synkkafrica — Book Authentic African Adventures",
+    description: "Discover and book authentic African experiences — seamless bookings, local hosts, unforgettable memories.",
+    images: ["/images/og-image.png"],
+    url: "https://your-domain.example",
+    siteName: "Synkkafrica"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Synkkafrica",
+    description: "Discover and book authentic African experiences."
+  }
 };
 
 export default function RootLayout({ children }) {
