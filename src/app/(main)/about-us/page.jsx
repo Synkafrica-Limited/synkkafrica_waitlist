@@ -231,7 +231,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="mt-6 flex items-center gap-4">
-                  <img src="/team/temidayo.jpg" alt="Temidayo Faluyi" className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-gray-800" />
+                  <img src="/team/temi.png" alt="Temidayo Faluyi" className="w-12 h-12 rounded-full object-fill ring-2 ring-white dark:ring-gray-800" />
                   <div>
                     <div className="font-semibold text-gray-900 dark:text-white">Temidayo Faluyi</div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">CEO & Founder</div>
