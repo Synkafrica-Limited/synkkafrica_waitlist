@@ -17,6 +17,19 @@ const faqs = [
     q: "How do I use Synkafrica to manage my convenience services?",
     a: "You can add, modify, or cancel convenience services anytime from your account.",
   },
+  // Vendor specific FAQs
+  {
+    q: "How can I list my business on Synkkafrica?",
+    a: (<span>Sign up as a Vendor on our <a href="/join_waitlist" className="text-orange-500 underline">Waitlist</a> page and select your vendor type. For a full guide visit our <a href="/vendor" className="text-orange-500 underline">Vendor Onboarding</a> page.</span>),
+  },
+  {
+    q: "What are the requirements to become a vendor?",
+    a: "Requirements vary by service type but typically include a verified business name, contact details, and documentation for trust and safety checks. We'll guide you through each step.",
+  },
+  {
+    q: "How does payment and settlement work for vendors?",
+    a: "We support secure payments through our payment partners. Settlement schedules are shared during onboarding and can be configured in your vendor dashboard.",
+  },
 ];
 
 export default function FAQ() {

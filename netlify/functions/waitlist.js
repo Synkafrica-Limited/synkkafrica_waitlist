@@ -13,6 +13,11 @@ function validate(form) {
   if (!form.countryCode || typeof form.countryCode !== 'string') return 'Country code is required.';
   if (!form.referral || typeof form.referral !== 'string') return 'Referral is required.';
   if (!form.service || typeof form.service !== 'string') return 'Service is required.';
+  // If vendor, require businessName and vendorType
+  if (form.role === 'Vendor') {
+    if (!form.businessName || typeof form.businessName !== 'string') return 'Business name is required for vendors.';
+    if (!form.vendorType || typeof form.vendorType !== 'string') return 'Vendor type is required.';
+  }
   return null;
 }
 
@@ -44,9 +49,9 @@ exports.handler = async function(event) {
       };
     }
 
-    // Insert into DB
+    // Insert into DB (include vendor fields if present)
     await sql`
-      INSERT INTO waitlist (name, email, country_code, phone, referral, service, updates, created_at)
+      INSERT INTO waitlist (name, email, country_code, phone, referral, service, role, business_name, vendor_type, updates, created_at)
       VALUES (
         ${form.name},
         ${form.email},
@@ -54,6 +59,9 @@ exports.handler = async function(event) {
         ${form.phone},
         ${form.referral},
         ${form.service},
+        ${form.role || 'Customer'},
+        ${form.businessName || null},
+        ${form.vendorType || null},
         ${!!form.updates},
         ${new Date().toISOString()}
       )
@@ -64,14 +72,17 @@ exports.handler = async function(event) {
       to: 'info@synkkafrica.com',
       from: 'no-reply@synkkafrica.com',
       templateId: '1383341c-9265-467d-9874-06efa9dcb426',
-      subject: 'New Waitlist Signup',
+      subject: form.role === 'Vendor' ? 'New Vendor Signup' : 'New Waitlist Signup',
       substitutions: {
         name: form.name,
         email: form.email,
         phone: form.phone,
         countryCode: form.countryCode,
         referral: form.referral,
-        service: form.service
+        service: form.service,
+        role: form.role || 'Customer',
+        businessName: form.businessName || '',
+        vendorType: form.vendorType || ''
       }
     };
     try {
@@ -82,14 +93,17 @@ exports.handler = async function(event) {
     }
 
     // Confirmation email using a dynamic template (only for new users)
+    // Choose a confirmation template depending on role
     const userMsg = {
       to: form.email,
       from: { email: 'no-reply@synkkafrica.com', name: 'Synkkafrica Team' },
-      subject: 'You’re on the Synkkafrica Waitlist!',
-      templateId: '0ffcaf65-dc47-4c17-853e-3a43153ec4e7',
+      subject: form.role === 'Vendor' ? 'Thanks for joining as a Vendor' : 'You’re on the Synkkafrica Waitlist!',
+      templateId: form.role === 'Vendor' ? 'vendor-template-id-REPLACE' : '0ffcaf65-dc47-4c17-853e-3a43153ec4e7',
       substitutions: {
         name: form.name,
         email: form.email,
+        businessName: form.businessName || '',
+        vendorType: form.vendorType || ''
       },
     };
     try {

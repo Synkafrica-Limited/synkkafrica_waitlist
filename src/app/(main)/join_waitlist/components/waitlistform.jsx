@@ -27,6 +27,9 @@ export default function WaitlistForm() {
     phone:       '',
     referral:    '',
     service:     '',
+    role:        'Customer',
+    businessName: '',
+    vendorType:  '',
     updates:     false,
   })
   const [submitted, setSubmitted] = useState(false)
@@ -216,6 +219,64 @@ export default function WaitlistForm() {
                                  transition"
                     />
                   </AnimatedField>
+
+                    {/* Role: Customer / Vendor */}
+                    <select
+                      name="role"
+                      value={form.role}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded border
+                                 border-zinc-200 dark:border-zinc-700
+                                 bg-zinc-50 dark:bg-zinc-800
+                                 text-zinc-900 dark:text-white
+                                 focus:outline-none focus:ring-2 focus:ring-orange-400
+                                 transition"
+                    >
+                      <option value="Customer">I am a Customer</option>
+                      <option value="Vendor">I am a Vendor / Provider</option>
+                    </select>
+
+                    {/* Vendor-only fields */}
+                    {form.role === 'Vendor' && (
+                      <>
+                        <AnimatedField label="Business / Organization Name">
+                          <input
+                            name="businessName"
+                            value={form.businessName}
+                            onChange={handleChange}
+                            placeholder=""
+                            required
+                            className="peer w-full px-4 py-3 rounded border
+                                   border-zinc-200 dark:border-zinc-700
+                                   bg-zinc-50 dark:bg-zinc-800
+                                   text-zinc-900 dark:text-white
+                                   focus:outline-none focus:ring-2 focus:ring-orange-400
+                                   transition"
+                          />
+                        </AnimatedField>
+
+                        <select
+                          name="vendorType"
+                          value={form.vendorType}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3 rounded border
+                                     border-zinc-200 dark:border-zinc-700
+                                     bg-zinc-50 dark:bg-zinc-800
+                                     text-zinc-900 dark:text-white
+                                     focus:outline-none focus:ring-2 focus:ring-orange-400
+                                     transition"
+                        >
+                          <option value="">Vendor Type (select)</option>
+                          <option value="Service">Service</option>
+                          <option value="Restaurant">Restaurant</option>
+                          <option value="Hotel/Resort">Beach / Resort</option>
+                          <option value="Transport Provider">Transport Provider</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </>
+                    )}
 
                   {/* Phone + Country */}
                   <AnimatedField label="">
