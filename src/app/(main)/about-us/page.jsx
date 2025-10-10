@@ -67,7 +67,7 @@ export default function AboutPage() {
           </motion.h1>
           <motion.p className="text-gray-600 dark:text-gray-300 space-y-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
             <span>
-              SynKKafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa's most genuine experiences. We understand that exploring Africa's vibrant cultures and destinations shouldn't mean dealing with fragmented platforms and unreliable vendors. Fast, seamless and secure bookings—so you can focus on making memories, not logistics.
+              SynKKafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa's most genuine experiences. We understand that exploring Africa's vibrant cultures and destinations shouldn't mean dealing with fragmented platforms and unreliable vendors. Fast, seamless and secure bookings so you can focus on making memories, not logistics.
             </span>
           </motion.p>
         </motion.div>
@@ -231,7 +231,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="mt-6 flex items-center gap-4">
-                  <img src="/team/temi.png" alt="Temidayo Faluyi" className="w-12 h-12 rounded-full object-fill ring-2 ring-white dark:ring-gray-800" />
+                  <img src="/team/temi.jpg" alt="Temidayo Faluyi" className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-gray-800" />
                   <div>
                     <div className="font-semibold text-gray-900 dark:text-white">Temidayo Faluyi</div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">CEO & Founder</div>

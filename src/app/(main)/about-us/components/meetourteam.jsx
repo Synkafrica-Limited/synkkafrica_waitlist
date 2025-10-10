@@ -8,8 +8,8 @@ import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 const TEAM = [
   {
     name: "Temidayo Faluyi",
-    role: "Chef Executive Officer",
-    photo: "/team/temi.png",
+    role: "Chief Executive Officer",
+    photo: "/team/temi.jpg",
   },
   {
     name: "Ezra Jethro-Enedouwa",
@@ -60,7 +60,7 @@ export default function MeetOurTeam() {
               key={member.name}
               className="rounded-2xl bg-gray-50 dark:bg-gray-800 shadow-md flex flex-col items-center"
             >
-              <div className="w-full h-140 relative rounded-t-2xl overflow-hidden">
+              <div className="w-full h-130 relative rounded-t-2xl overflow-hidden">
                 <Image
                   src={member.photo}
                   alt={member.name}
