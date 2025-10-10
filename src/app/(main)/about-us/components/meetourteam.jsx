@@ -60,12 +60,13 @@ export default function MeetOurTeam() {
               key={member.name}
               className="rounded-2xl bg-gray-50 dark:bg-gray-800 shadow-md flex flex-col items-center"
             >
-              <div className="w-full h-130 relative rounded-t-2xl overflow-hidden">
+              <div className="w-full md:h-110 relative rounded-t-2xl overflow-hidden aspect-[4/3] sm:aspect-[3/2]">
                 <Image
                   src={member.photo}
-                  alt={member.name}
+                  alt={`${member.name} - ${member.role}`}
                   fill
                   className="object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="p-4 text-center">
