@@ -86,7 +86,7 @@ export default function MeetOurTeam() {
                 <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
                   {member.name}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                <p className="text-black dark:text-gray-300 text-sm mt-1">
                   {member.role}
                 </p>
               </div>

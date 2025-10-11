@@ -65,7 +65,7 @@ export default function AboutPage() {
           <motion.h1 className="text-4xl lg:text-5xl font-extrabold mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
             Revolutionizing African Cultural Tourism
           </motion.h1>
-          <motion.p className="text-gray-600 dark:text-gray-300 space-y-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
+          <motion.p className="text-black dark:text-gray-300 space-y-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
             <span>
               SynKKafrica is built with the vision to help travelers and locals discover, book, and enjoy Africa's most genuine experiences. We understand that exploring Africa's vibrant cultures and destinations shouldn't mean dealing with fragmented platforms and unreliable vendors. Fast, seamless and secure bookings so you can focus on making memories, not logistics.
             </span>
@@ -102,7 +102,7 @@ export default function AboutPage() {
         <motion.h2 className="text-3xl font-bold text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
           Our Mission & Core Values
         </motion.h2>
-        <motion.p className="text-center text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
+        <motion.p className="text-center text-black dark:text-gray-300 max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }}>
           Our vision is to empower African culture through technology.
         </motion.p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -133,7 +133,7 @@ export default function AboutPage() {
               className={`${v.color} rounded-2xl p-6 shadow-md`}
             >
               <h3 className="text-xl font-semibold mb-2">{v.title}</h3>
-              <p className="text-gray-700 dark:text-black">{v.desc}</p>
+              <p className="text-gray-900 dark:text-black">{v.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -166,7 +166,7 @@ export default function AboutPage() {
             >
               <div className="mb-4">{f.icon}</div>
               <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
-              <p className="text-gray-700 dark:text-gray-300 text-sm">{f.desc}</p>
+              <p className="text-gray-900 dark:text-gray-300 text-sm">{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -222,10 +222,10 @@ export default function AboutPage() {
               <div className="h-full bg-blue-50 dark:bg-[#0f172a] rounded-2xl p-6 md:p-8 shadow-md flex flex-col justify-between">
                 <div>
                   <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Our story</h3>
-                  <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  <p className="text-gray-900 dark:text-gray-300 mb-4">
                     Our story began with a passion for showcasing Africa's rich culture, vibrant communities, and unforgettable experiences. Born from countless journeys and deep local connections, Synkkafrica was created to make booking authentic African adventures simple and accessible.
                   </p>
-                  <p className="text-gray-700 dark:text-gray-300">
+                  <p className="text-gray-900 dark:text-gray-300">
                     We believe every trip, event, or outing should be more than a transaction it should be a memory in the making. As we launch, our story continues with you the explorer, the foodie, the culture‑seeker ready to synkk with the soul of Africa.
                   </p>
                 </div>
@@ -234,7 +234,7 @@ export default function AboutPage() {
                   <img src="/team/temi.jpg" alt="Temidayo Faluyi" className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-gray-800" />
                   <div>
                     <div className="font-semibold text-gray-900 dark:text-white">Temidayo Faluyi</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">CEO & Founder</div>
+                    <div className="text-sm text-black dark:text-gray-400">CEO & Founder</div>
                   </div>
                 </div>
               </div>

@@ -72,7 +72,7 @@ export default function FAQ() {
             </button>
             <div
               id={`faq-panel-${i}`}
-              className={`absolute left-0 right-0 z-10 bg-white dark:bg-zinc-900/90 rounded-b-xl shadow-lg transition-all duration-500 text-base text-gray-600 dark:text-gray-300 ${open[i] ? 'max-h-40 py-2 opacity-100' : 'max-h-0 py-0 opacity-0 pointer-events-none'}`}
+              className={`absolute left-0 right-0 z-10 bg-white dark:bg-zinc-900/90 rounded-b-xl shadow-lg transition-all duration-500 text-base text-black dark:text-gray-300 ${open[i] ? 'max-h-40 py-2 opacity-100' : 'max-h-0 py-0 opacity-0 pointer-events-none'}`}
               aria-hidden={!open[i]}
               style={{ willChange: 'max-height', top: '100%' }}
             >

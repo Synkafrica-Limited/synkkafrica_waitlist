@@ -38,7 +38,7 @@ export default function LandingPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 leading-tight text-balance">
             Join the Synkkafrica Waitlist
           </h1>
-          <p className="mb-6 text-base sm:text-lg text-gray-700 dark:text-gray-300 max-w-lg">
+          <p className="mb-6 text-base sm:text-lg text-gray-900 dark:text-gray-300 max-w-lg">
             Be among the first to enjoy the future synkkafrica brings to you. Join the waitlist now to get early access and exclusive updates.
           </p>
           <form

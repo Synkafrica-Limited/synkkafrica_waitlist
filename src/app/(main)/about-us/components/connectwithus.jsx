@@ -22,7 +22,7 @@ export default function ConnectWithUs() {
           <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-4">
             Connect with us
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          <p className="text-lg text-black dark:text-gray-300 mb-6">
             Have questions, feedback, or just want to say hello? We’re here to help—and we’d love to hear from you.
           </p>
 
@@ -41,7 +41,7 @@ export default function ConnectWithUs() {
             </div>
             <div className="flex items-center space-x-3">
               <span className="font-semibold text-gray-800 dark:text-gray-200">Office:</span>
-              <address className="not-italic text-gray-600 dark:text-gray-300">
+              <address className="not-italic text-black dark:text-gray-300">
                 3, Adamo Street, Lekki Phase 2, Lagos, Nigeria
               </address>
             </div>
@@ -54,7 +54,7 @@ export default function ConnectWithUs() {
                 href="#!"
                 className="p-3 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
               >
-                <Icon className="text-gray-700 dark:text-gray-200" size={20} />
+                <Icon className="text-gray-900 dark:text-gray-200" size={20} />
               </a>
             ))}
           </div>

@@ -20,7 +20,7 @@ export default function NotFound() {
       </div>
       <HiOutlineExclamationCircle className="text-[#E26A3D] mb-6" style={{ fontSize: 100 }} />
       <h1 className="text-4xl font-bold mb-2">404 - Page Not Found</h1>
-      <p className="text-gray-600 text-lg mb-6 text-center max-w-md">
+      <p className="text-black text-lg mb-6 text-center max-w-md">
         Sorry, the page you are looking for may still be in development or does not exist or has been moved.
       </p>
       <Link

@@ -8,7 +8,7 @@ import ThemeToggle from "../ui/ThemeToggle";
 
 export default function Footer() {
   return (
-    <footer className="space-y-8 bg-zinc-50 dark:bg-zinc-900 text-gray-700 dark:text-gray-300 py-8 transition-colors">
+    <footer className="space-y-8 bg-zinc-50 dark:bg-zinc-900 text-gray-900 dark:text-gray-300 py-8 transition-colors">
       <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center lg:justify-between space-y-8 lg:space-y-0">
         {/* 3D Lottie Animation in place of logo */}
         <div className="w-32 h-32">
@@ -55,7 +55,7 @@ export default function Footer() {
       </div>
 
       {/* bottom bar */}
-      <div className="mt-8 border-t border-gray-300 dark:border-gray-800 pt-4 text-center text-xs text-gray-500 dark:text-gray-400">
+      <div className="mt-8 border-t border-gray-300 dark:border-gray-800 pt-4 text-center text-xs text-gray-800 dark:text-gray-400">
         © {new Date().getFullYear()} Synkkafrica — All Rights Reserved
       </div>
     </footer>

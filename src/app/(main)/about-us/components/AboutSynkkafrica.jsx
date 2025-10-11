@@ -14,7 +14,7 @@ export default function AboutSynkkafrica() {
     >
       <div className="flex-1">
         <h2 className="text-3xl font-bold mb-4">About Synkkafrica</h2>
-        <p className="mb-6 text-gray-700 dark:text-gray-300">
+        <p className="mb-6 text-gray-900 dark:text-gray-300">
           At Synkkafrica, we're on a mission to connect you with the heart of Africa's most authentic experiences. From cultural tours to premium dining and vibrant events, seamless auto movement, and other convenience services, our platform makes it easy to discover, plan, and book unforgettable moments. Designed for both locals and travelers, Synkkafrica offers real-time availability, secure bookings, and handpicked experiences you won’t find anywhere else.
         </p>
         <div>
