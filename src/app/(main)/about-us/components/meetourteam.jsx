@@ -60,14 +60,27 @@ export default function MeetOurTeam() {
               key={member.name}
               className="rounded-2xl bg-gray-50 dark:bg-gray-800 shadow-md flex flex-col items-center"
             >
-              <div className="w-full md:h-110 relative rounded-t-2xl overflow-hidden aspect-[4/3] sm:aspect-[3/2]">
-                <Image
-                  src={member.photo}
-                  alt={`${member.name} - ${member.role}`}
-                  fill
-                  className="object-cover"
-                  loading="lazy"
-                />
+              <div className="w-full relative rounded-t-2xl overflow-hidden">
+                {/* Mobile: taller container and contain so full image is visible */}
+                <div className="block sm:hidden h-113 w-full bg-gray-100 dark:bg-gray-800 relative">
+                  <Image
+                    src={member.photo}
+                    alt={`${member.name} - ${member.role}`}
+                    fill
+                    className="object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                {/* Desktop/tablet: maintain card aspect and cover */}
+                <div className="hidden sm:block  sm:aspect-[3/2] w-full h-115 relative">
+                  <Image
+                    src={member.photo}
+                    alt={`${member.name} - ${member.role}`}
+                    fill
+                    className="object-cover"
+                    loading="lazy"
+                  />
+                </div>
               </div>
               <div className="p-4 text-center">
                 <h3 className="font-semibold text-lg text-gray-900 dark:text-white">

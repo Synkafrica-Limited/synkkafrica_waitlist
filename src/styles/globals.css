@@ -8,7 +8,7 @@ html {
   --text-foreground: #000;
 }
 
-/* SynkAfrica Design System Tokens - Tailwind v4+ @theme */
+/* Synkkafrica Design System Tokens - Tailwind v4+ @theme */
 @theme {
   /* FONT FAMILY */
   --font-sans: 'Montserrat', sans-serif;

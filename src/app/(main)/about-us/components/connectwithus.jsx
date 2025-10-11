@@ -29,7 +29,7 @@ export default function ConnectWithUs() {
           <div className="space-y-4 mb-8">
             <div className="flex items-center space-x-3">
               <span className="font-semibold text-gray-800 dark:text-gray-200">Email:</span>
-              <a href="mailto:support@synkafrica.com" className="text-primary-600 hover:underline">
+              <a href="mailto:info@Synkkafrica.com" className="text-primary-600 hover:underline">
                 info@synkkafrica.com
               </a>
             </div>

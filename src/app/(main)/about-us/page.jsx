@@ -139,7 +139,7 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* 3. Top Features of Synkafrica Booking */}
+      {/* 3. Top Features of Synkkafrica Booking */}
       <motion.section
         className="space-y-8  bg-primary-500 rounded-2xl dark:bg-zinc-900 p-8"
         initial={{ opacity: 0, y: 40 }}

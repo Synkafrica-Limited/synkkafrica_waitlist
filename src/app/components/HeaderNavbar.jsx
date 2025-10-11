@@ -30,7 +30,7 @@ export default function HeaderNavbar({
           {/* Logo */}
           <motion.div whileHover={{ rotate: 8, scale: 1.12 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
             <Image
-              src="/images/brand/synkafrica-logo-single.png"
+              src="/images/brand/Synkkafrica-logo-single.png"
               alt="Synkkafrica Logo"
               width={32}
               height={32}

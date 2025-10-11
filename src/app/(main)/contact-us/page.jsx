@@ -53,8 +53,8 @@ export default function ContactPage() {
             className="absolute -top-10 -right-10 opacity-20 pointer-events-none"
           >
             <Image
-              src="/images/brand/synkafrica-logo-single.png"
-              alt="SynkAfrica"
+              src="/images/brand/Synkkafrica-logo-single.png"
+              alt="Synkkafrica"
               width={120}
               height={120}
               className="rounded-full"

@@ -1,26 +1,27 @@
 import React from "react";
+import VendorModal from "@/app/components/VendorModal";
 
 const faqs = [
   {
-    q: "How do I find booking deals on Synkafrica?",
+    q: "How do I find booking deals on Synkkafrica?",
     a: "You can find booking deals by searching our platform and subscribing to our newsletter for exclusive offers.",
   },
   {
-    q: "What makes Synkafrica a great booking app?",
+    q: "What makes Synkkafrica a great booking app?",
     a: "We offer a seamless experience, exclusive deals, and a wide range of services tailored for Africa.",
   },
   {
-    q: "How do I use Synkafrica to manage my bookings?",
+    q: "How do I use Synkkafrica to manage my bookings?",
     a: "Easily manage your bookings through your dashboard after signing up.",
   },
   {
-    q: "How do I use Synkafrica to manage my convenience services?",
+    q: "How do I use Synkkafrica to manage my convenience services?",
     a: "You can add, modify, or cancel convenience services anytime from your account.",
   },
   // Vendor specific FAQs
   {
     q: "How can I list my business on Synkkafrica?",
-    a: (<span>Sign up as a Vendor on our <a href="/join_waitlist" className="text-orange-500 underline">Waitlist</a> page and select your vendor type. For a full guide visit our <a href="/vendor" className="text-orange-500 underline">Vendor Onboarding</a> page.</span>),
+    a: (<span>Sign up as a Vendor on our <a href="/join_waitlist" className="text-orange-500 underline">Waitlist</a> page and select your vendor type. For a full guide open the <button id="vendor-open" className="text-orange-500 underline">Vendor Onboarding</button> modal.</span>),
   },
   {
     q: "What are the requirements to become a vendor?",
@@ -34,14 +35,23 @@ const faqs = [
 
 export default function FAQ() {
   const [open, setOpen] = React.useState(Array(faqs.length).fill(false));
+  const [vendorOpen, setVendorOpen] = React.useState(false);
   const toggle = (idx) => setOpen((prev) => {
     const next = [...prev];
     next[idx] = !next[idx];
     return next;
   });
+  React.useEffect(() => {
+    const btn = document.getElementById('vendor-open');
+    if (!btn) return;
+    const handler = () => setVendorOpen(true);
+    btn.addEventListener('click', handler);
+    return () => btn.removeEventListener('click', handler);
+  }, []);
   return (
+    <>
     <section className="w-full max-w-7xl mx-auto px-1 sm:px-4 md:px-0">
-      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">Frequently asked questions about Synkafrica</h2>
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">Frequently asked questions about Synkkafrica</h2>
       <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-6">
         {faqs.map((faq, i) => (
           <div
@@ -72,5 +82,7 @@ export default function FAQ() {
         ))}
       </div>
     </section>
+      <VendorModal open={vendorOpen} onClose={() => setVendorOpen(false)} />
+    </>
   );
 }
