@@ -36,13 +36,13 @@ export default function ConnectWithUs() {
             <div className="flex items-center space-x-3">
               <span className="font-semibold text-gray-800 dark:text-gray-200">Phone:</span>
               <a href="tel:+23425296409" className="text-primary-600 hover:underline">
-                +234 2529 6409
+                +234 2529 6409, +1 (857) 302-9886
               </a>
             </div>
             <div className="flex items-center space-x-3">
-              <span className="font-semibold text-gray-800 dark:text-gray-200">Office:</span>
+              <span className="font-semibold text-gray-800 dark:text-gray-200">Offices:</span>
               <address className="not-italic text-black dark:text-gray-300">
-                3, Adamo Street, Lekki Phase 2, Lagos, Nigeria
+                Lekki Phase 2, Lagos, Nigeria | Anawan, Massachusetts, USA
               </address>
             </div>
           </div>
