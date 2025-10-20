@@ -39,8 +39,27 @@ exports.handler = async function(event) {
       };
     }
 
-    // Check for duplicate email
-    const [existing] = await sql`SELECT id FROM waitlist WHERE email = ${form.email}`;
+    // Check for duplicate email (handle different return shapes from the Neon client)
+    let existing;
+    try {
+      const qres = await sql`SELECT id FROM waitlist WHERE email = ${form.email}`;
+      if (Array.isArray(qres)) {
+        existing = qres[0];
+      } else if (qres && Array.isArray(qres.rows)) {
+        existing = qres.rows[0];
+      } else if (qres && qres[0]) {
+        existing = qres[0];
+      } else {
+        existing = undefined;
+      }
+    } catch (dbErr) {
+      console.error('Database query error (duplicate check):', dbErr && dbErr.message ? dbErr.message : dbErr);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Database error during duplicate check.' }),
+      };
+    }
+
     if (existing) {
       // Only return 409, do not send confirmation email
       return {
