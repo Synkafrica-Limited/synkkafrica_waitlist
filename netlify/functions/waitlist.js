@@ -71,7 +71,8 @@ exports.handler = async function(event) {
     const waitlistNotification = {
       to: 'info@synkkafrica.com',
       from: 'no-reply@synkkafrica.com',
-      templateId: '1383341c-9265-467d-9874-06efa9dcb426',
+      // Use an internal team template; prefer env var so you can change without code edits
+      templateId: '15308042-5368-4e9c-81ce-b811796d3a3b'|| '1383341c-9265-467d-9874-06efa9dcb426',
       subject: form.role === 'Vendor' ? 'New Vendor Signup' : 'New Waitlist Signup',
       substitutions: {
         name: form.name,
@@ -98,7 +99,7 @@ exports.handler = async function(event) {
       to: form.email,
       from: { email: 'no-reply@synkkafrica.com', name: 'Synkkafrica Team' },
       subject: form.role === 'Vendor' ? 'Thanks for joining as a Vendor' : 'You’re on the Synkkafrica Waitlist!',
-      templateId: form.role === 'Vendor' ? 'vendor-template-id-REPLACE' : '0ffcaf65-dc47-4c17-853e-3a43153ec4e7',
+  templateId: form.role === 'Vendor' ? 'cdf235c1-d6ad-4490-a68e-755f620fddd9' : '0ffcaf65-dc47-4c17-853e-3a43153ec4e7',
       substitutions: {
         name: form.name,
         email: form.email,
