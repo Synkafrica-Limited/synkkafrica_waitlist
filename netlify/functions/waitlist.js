@@ -66,8 +66,8 @@ exports.handler = async (event) => {
       // - SENDGRID_INTERNAL_VENDOR_NOTIFY_TEMPLATE_ID: template for vendor signups
       // - SENDGRID_INTERNAL_CUSTOMER_NOTIFY_TEMPLATE_ID: template for customer signups
       templateId: role === 'Vendor'
-        ? (process.env.SENDGRID_INTERNAL_VENDOR_NOTIFY_TEMPLATE_ID || '15308042-5368-4e9c-81ce-b811796d3a3b')
-        : (process.env.SENDGRID_INTERNAL_CUSTOMER_NOTIFY_TEMPLATE_ID || '1383341c-9265-467d-9874-06efa9dcb426'),
+        ? (process.env.SENDGRID_INTERNAL_VENDOR_NOTIFY_TEMPLATE_ID || 'd-15308042-5368-4e9c-81ce-b811796d3a3b')
+        : (process.env.SENDGRID_INTERNAL_CUSTOMER_NOTIFY_TEMPLATE_ID || 'd-1383341c-9265-467d-9874-06efa9dcb426'),
       dynamic_template_data: {
         submitted_at: new Date().toISOString(),
         businessName: form.businessName || '',
@@ -89,8 +89,8 @@ exports.handler = async (event) => {
       to: form.email,
       from: { email: 'no-reply@synkkafrica.com', name: 'SynkkAfrica Team' },
       templateId: role === 'Vendor'
-        ? (process.env.SENDGRID_VENDOR_CONFIRM_TEMPLATE_ID || 'cdf235c1-d6ad-4490-a68e-755f620fddd9')
-        : (process.env.SENDGRID_CUSTOMER_CONFIRM_TEMPLATE_ID || '0ffcaf65-dc47-4c17-853e-3a43153ec4e7'),
+        ? (process.env.SENDGRID_VENDOR_CONFIRM_TEMPLATE_ID || 'd-cdf235c1-d6ad-4490-a68e-755f620fddd9')
+        : (process.env.SENDGRID_CUSTOMER_CONFIRM_TEMPLATE_ID || 'd-0ffcaf65-dc47-4c17-853e-3a43153ec4e7'),
       dynamic_template_data: {
         name: form.name,
         email: form.email,
