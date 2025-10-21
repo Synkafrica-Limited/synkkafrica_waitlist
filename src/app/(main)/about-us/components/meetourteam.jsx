@@ -1,50 +1,20 @@
 // components/MeetOurTeam.jsx
 "use client";
 
-import { useRef } from "react";
-import Image from "next/image";
+import { useRef } from "react"; 
+import Image from "next/image"; 
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import Image from "next/image";
+
 
 const TEAM = [
-  {
-    name: "Temidayo Faluyi",
-    role: "Chief Executive Officer",
-    photo: "/team/temi.jpg",
-  },
-  {
-    name: "Ezra Jethro-Enedouwa",
-    role: "Chief Operations Officer",
-    photo: "/team/ezra.jpg",
-  },
-  {
-    name: "Damilola Olanrewaju",
-    role: "Chief Technology Officer",
-    photo: "/team/damie.jpg",
-  },
-  {
-    name: "Paul Sola-Eniolawun",
-    role: "Vice President, Engineering",
-    photo: "/team/paul.jpg",
-  },
-
-    {
-      name: "Emmanuel Odeyale",
-      role: "Head of Design",
-      photo: "/team/emmanuel.jpg",
-    },
-
-    {
-      name: "Gaius Richard",
-      role: "Senior DevOps Engineer",
-      photo: "/team/gaius.jpg",
-    },
-
-    {
-      name: "Chelsea Jegede",
-      role: "Head of Partnership",
-      photo: "/team/chelsea.jpg",
-    },
-
+  { name: "Temidayo Faluyi", role: "Chief Executive Officer", photo: "/team/temi.jpg" },
+  { name: "Ezra Jethro-Enedouwa", role: "Chief Operations Officer", photo: "/team/ezra.jpg" },
+  { name: "Damilola Olanrewaju", role: "Chief Technology Officer", photo: "/team/damie.jpg" },
+  { name: "Paul Sola-Eniolawun", role: "Vice President, Engineering", photo: "/team/paul.jpg" },
+  { name: "Emmanuel Odeyale", role: "Head of Design", photo: "/team/emmanuel.jpg" },
+  { name: "Gaius Richard", role: "Senior DevOps Engineer", photo: "/team/gaius.jpg" },
+  { name: "Chelsea Jegede", role: "Head of Partnership", photo: "/team/chelsea.jpg" },
 ];
 
 export default function MeetOurTeam() {
@@ -53,42 +23,29 @@ export default function MeetOurTeam() {
       <h2 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
         Meet our Team
       </h2>
+
       <div className="mx-auto max-w-6xl px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {TEAM.map((member) => (
+          {TEAM.map((m) => (
             <div
-              key={member.name}
+              key={m.name}
               className="rounded-2xl bg-gray-50 dark:bg-gray-800 shadow-md flex flex-col items-center"
             >
-              <div className="w-full relative rounded-t-2xl overflow-hidden">
-                {/* Mobile: taller container and contain so full image is visible */}
-                <div className="block sm:hidden h-113 w-full bg-gray-100 dark:bg-gray-800 relative">
-                  <Image
-                    src={member.photo}
-                    alt={`${member.name} - ${member.role}`}
-                    fill
-                    className="object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                {/* Desktop/tablet: maintain card aspect and cover */}
-                <div className="hidden sm:block  sm:aspect-[3/2] w-full h-115 relative">
-                  <Image
-                    src={member.photo}
-                    alt={`${member.name} - ${member.role}`}
-                    fill
-                    className="object-cover"
-                    loading="lazy"
-                  />
-                </div>
+              <div className="w-full relative rounded-t-2xl overflow-hidden
+                              aspect-[4/5] sm:aspect-[3/2]"> {/* <-- gives height */}
+                <Image
+                  src={m.photo}
+                  alt={`${m.name} - ${m.role}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  priority={false}
+                />
               </div>
+
               <div className="p-4 text-center">
-                <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
-                  {member.name}
-                </h3>
-                <p className="text-black dark:text-gray-300 text-sm mt-1">
-                  {member.role}
-                </p>
+                <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{m.name}</h3>
+                <p className="text-black dark:text-gray-300 text-sm mt-1">{m.role}</p>
               </div>
             </div>
           ))}
