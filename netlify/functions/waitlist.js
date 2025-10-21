@@ -5,6 +5,15 @@ const { neon } = require('@netlify/neon');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const sql = neon(); // uses NETLIFY_DATABASE_URL
 
+// Toggle: legacy vs dynamic templates (default: legacy)
+const USE_DYNAMIC_TEMPLATES = String(process.env.SENDGRID_USE_DYNAMIC || 'false').toLowerCase() === 'true';
+
+// If using legacy templates, enable substitution wrappers for {{var}} syntax
+if (!USE_DYNAMIC_TEMPLATES) {
+  // NOTE: setSubstitutionWrappers is supported by @sendgrid/mail for legacy templates
+  sgMail.setSubstitutionWrappers('{{', '}}');
+}
+
 function validate(form) {
   if (!form.name || typeof form.name !== 'string' || form.name.length < 2) return 'Name is required.';
   if (!form.email || !/^\S+@\S+\.\S+$/.test(form.email)) return 'Valid email is required.';
@@ -25,84 +34,135 @@ exports.handler = async (event) => {
   }
 
   try {
-    const form = JSON.parse(event.body);
+    const form = JSON.parse(event.body || '{}');
     const error = validate(form);
     if (error) return { statusCode: 400, body: JSON.stringify({ error }) };
 
-    // Normalize role (force Vendor/Customer)
-    const role = (form.role === 'Vendor') ? 'Vendor' : 'Customer';
+    const role = form.role === 'Vendor' ? 'Vendor' : 'Customer';
 
     // 1) Duplicate check
-    const { rows } = await sql`SELECT id FROM waitlist WHERE email = ${form.email}`;
-    const existing = rows && rows[0];
+    let existing = null;
+    try {
+      const { rows } = await sql`SELECT id FROM waitlist WHERE email = ${form.email}`;
+      existing = rows?.[0] || null;
+    } catch (dbErr) {
+      console.error('DB select error:', dbErr);
+      return { statusCode: 500, body: JSON.stringify({ error: 'Database error (read).' }) };
+    }
     if (existing) {
       return { statusCode: 409, body: JSON.stringify({ error: 'This email is already on the waitlist.' }) };
     }
 
     // 2) Insert
-    await sql`
-      INSERT INTO waitlist (
-        name, email, country_code, phone, referral, service, role, business_name, vendor_type, updates
-      ) VALUES (
-        ${form.name},
-        ${form.email},
-        ${form.countryCode},
-        ${form.phone},
-        ${form.referral},
-        ${form.service},
-        ${role},
-        ${form.businessName || null},
-        ${form.vendorType || null},
-        ${!!form.updates}
-      )
-    `;
+    try {
+      await sql`
+        INSERT INTO waitlist (
+          name, email, country_code, phone, referral, service, role, business_name, vendor_type, updates
+        ) VALUES (
+          ${form.name},
+          ${form.email},
+          ${form.countryCode},
+          ${form.phone},
+          ${form.referral},
+          ${form.service},
+          ${role},
+          ${form.businessName || null},
+          ${form.vendorType || null},
+          ${!!form.updates}
+        )
+      `;
+    } catch (dbErr) {
+      console.error('DB insert error:', dbErr);
+      return { statusCode: 500, body: JSON.stringify({ error: 'Database error (write).' }) };
+    }
 
-    // 3) Internal team notification (dynamic template)
-    // templateId should be your internal-notify template (the CTA-free one you just finalized)
-    const internalMsg = {
-      to: 'info@synkkafrica.com',
-      from: { email: 'no-reply@synkkafrica.com', name: 'SynkkAfrica Alerts' },
-      // Allow separate internal templates for Vendor vs Customer via env vars.
-      // - SENDGRID_INTERNAL_VENDOR_NOTIFY_TEMPLATE_ID: template for vendor signups
-      // - SENDGRID_INTERNAL_CUSTOMER_NOTIFY_TEMPLATE_ID: template for customer signups
-      templateId: role === 'Vendor'
-        ? (process.env.SENDGRID_INTERNAL_VENDOR_NOTIFY_TEMPLATE_ID || 'd-15308042-5368-4e9c-81ce-b811796d3a3b')
-        : (process.env.SENDGRID_INTERNAL_CUSTOMER_NOTIFY_TEMPLATE_ID || 'd-1383341c-9265-467d-9874-06efa9dcb426'),
-      dynamic_template_data: {
-        submitted_at: new Date().toISOString(),
-        businessName: form.businessName || '',
-        service: form.service,
-        vendorType: form.vendorType || '',
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        countryCode: form.countryCode,
-        referral: form.referral,
-        role,
-        ops_notes: '' // optional
-      }
+    // Common data used for either template mode
+    const internalData = {
+      submitted_at: new Date().toISOString(),
+      businessName: form.businessName || '',
+      service: form.service,
+      vendorType: form.vendorType || '',
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      countryCode: form.countryCode,
+      referral: form.referral,
+      role,
+      ops_notes: ''
     };
-    try { await sgMail.send(internalMsg); } catch (e) { console.error('SendGrid internal notify error:', e?.response?.body || e.message); }
 
-    // 4) User confirmation (dynamic template)
-    const userMsg = {
-      to: form.email,
-      from: { email: 'no-reply@synkkafrica.com', name: 'SynkkAfrica Team' },
-      templateId: role === 'Vendor'
-        ? (process.env.SENDGRID_VENDOR_CONFIRM_TEMPLATE_ID || 'd-cdf235c1-d6ad-4490-a68e-755f620fddd9')
-        : (process.env.SENDGRID_CUSTOMER_CONFIRM_TEMPLATE_ID || 'd-0ffcaf65-dc47-4c17-853e-3a43153ec4e7'),
-      dynamic_template_data: {
-        name: form.name,
-        email: form.email,
-        businessName: form.businessName || '',
-        vendorType: form.vendorType || ''
-      }
+    const userData = {
+      name: form.name,
+      email: form.email,
+      businessName: form.businessName || '',
+      vendorType: form.vendorType || ''
     };
-    try { await sgMail.send(userMsg); } catch (e) { console.error('SendGrid user confirm error:', e?.response?.body || e.message); }
+
+    // 3) Internal team notification
+    try {
+      if (USE_DYNAMIC_TEMPLATES) {
+        // Dynamic template IDs must start with d-
+        const templateId = role === 'Vendor'
+          ? process.env.SENDGRID_INTERNAL_VENDOR_NOTIFY_TEMPLATE_ID // e.g., d-xxxxxxxx
+          : process.env.SENDGRID_INTERNAL_CUSTOMER_NOTIFY_TEMPLATE_ID;
+
+        await sgMail.send({
+          to: 'info@synkkafrica.com',
+          from: { email: 'no-reply@synkkafrica.com', name: 'SynkkAfrica Alerts' },
+          templateId,
+          dynamic_template_data: internalData
+        });
+      } else {
+        // LEGACY template (your current setup)
+        const templateId = role === 'Vendor'
+          ? (process.env.SENDGRID_INTERNAL_VENDOR_LEGACY_TEMPLATE_ID || '15308042-5368-4e9c-81ce-b811796d3a3b')
+          : (process.env.SENDGRID_INTERNAL_CUSTOMER_LEGACY_TEMPLATE_ID || '1383341c-9265-467d-9874-06efa9dcb426');
+
+        await sgMail.send({
+          to: 'info@synkkafrica.com',
+          from: { email: 'no-reply@synkkafrica.com', name: 'SynkkAfrica Alerts' },
+          templateId,
+          substitutions: internalData
+        });
+      }
+    } catch (e) {
+      console.error('SendGrid internal notify error:', e?.response?.body || e.message || e);
+      // Do not fail the whole request — proceed
+    }
+
+    // 4) User confirmation
+    try {
+      if (USE_DYNAMIC_TEMPLATES) {
+        const templateId = role === 'Vendor'
+          ? process.env.SENDGRID_VENDOR_CONFIRM_TEMPLATE_ID // e.g., d-xxxxxxxx
+          : process.env.SENDGRID_CUSTOMER_CONFIRM_TEMPLATE_ID;
+
+        await sgMail.send({
+          to: form.email,
+          from: { email: 'no-reply@synkkafrica.com', name: 'SynkkAfrica Team' },
+          templateId,
+          dynamic_template_data: userData
+        });
+      } else {
+        const templateId = role === 'Vendor'
+          ? (process.env.SENDGRID_VENDOR_CONFIRM_LEGACY_TEMPLATE_ID || 'cdf235c1-d6ad-4490-a68e-755f620fddd9')
+          : (process.env.SENDGRID_CUSTOMER_CONFIRM_LEGACY_TEMPLATE_ID || '0ffcaf65-dc47-4c17-853e-3a43153ec4e7');
+
+        await sgMail.send({
+          to: form.email,
+          from: { email: 'no-reply@synkkafrica.com', name: 'SynkkAfrica Team' },
+          templateId,
+          substitutions: userData
+        });
+      }
+    } catch (e) {
+      console.error('SendGrid user confirmation error:', e?.response?.body || e.message || e);
+      // Still return 200; the signup is stored
+    }
 
     return { statusCode: 200, body: JSON.stringify({ success: true }) };
   } catch (err) {
     console.error('Waitlist handler error:', err);
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    return { statusCode: 500, body: JSON.stringify({ error: 'Server error. Please try again.' }) };
   }
 };
